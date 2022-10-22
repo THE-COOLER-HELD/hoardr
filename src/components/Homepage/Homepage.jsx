@@ -8,6 +8,7 @@ function Homepage() {
     labels: ["Spend", "B", "C", "D", "E"],
   });
   const [series, setSeries] = useState([44, 55, 41, 17, 15]);
+  const [maxFunds, setMaxFunds] = useState(1000);
   const [availableFunds, setAvailableFunds] = useState(1000);
 
   const [length, setLength] = useState("m"); // m, w, d
@@ -17,6 +18,21 @@ function Homepage() {
   );
   console.log(nextPaymentDate);
 
+  function chooseDragon() {
+    const percentage = maxFunds / availableFunds;
+    const thirdOfMax = maxFunds / 3;
+    if (percentage > thirdOfMax * 2) {
+      return Dragon1;
+    }
+
+    if (percentage > thirdOfMax) {
+      return Dragon2;
+    }
+
+    if (percentage < thirdOfMax) {
+      return Dragon3;
+    }
+  }
   return (
     <div>
       <section>
