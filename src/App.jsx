@@ -11,9 +11,11 @@ import AddExpense from "./components/AddExpense/AddExpense";
 import AddIncome from "./components/AddIncome/AddIncome";
 import ViewExpenses from "./components/ViewExpenses/ViewExpenses";
 import UserContext from "./contexts/UserContext";
+import AddExpense from "./components/AddExpense/AddExpense";
 
 function App() {
 	const [user, setUser] = useState({});
+  console.log(user)
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
 			<div className='App'>
