@@ -1,6 +1,7 @@
 import React from "react";
 import Dragon from "../../assets/dragon-with-the-coin.png";
 import Chart from "react-apexcharts";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Homepage() {
@@ -33,6 +34,7 @@ function Homepage() {
   }
   return (
     <div>
+      <Link to="/expenses">To the Expense!</Link>
       <section>
         <img src={Dragon} height="500" width="500"></img>
         <Chart options={options} series={series} type="donut" width="500" />
