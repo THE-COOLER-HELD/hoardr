@@ -6,6 +6,7 @@ import SignupForm from './components/SignupForm/SignupForm'
 import SignupLogin from './components/SignupLogin/SignupLogin'
 import LoginPage from './components/LoginPage/LoginPage'
 
+
 function App() {
 
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
+
     </div>
   )
 }
