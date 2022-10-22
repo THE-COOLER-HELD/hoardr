@@ -11,7 +11,13 @@ function AddIncome() {
           <input type="number" aria-label="amount of money to add"></input>
         </label>
 
-        <label></label>
+        <label>
+          When did you acquire this?
+          <input type="date" aria-label="date of income"></input>
+        </label>
+
+        <button>Add to hoard</button>
+        <button>Reset hoard</button>
       </form>
     </div>
   );
