@@ -42,12 +42,12 @@ function Homepage() {
           type="donut"
         ></Chart>
       </section>
-      <form>
-        <label>
+      <section className="funds-text">
+        <p>
           You have £{availableFunds} left until{" "}
           {nextPaymentDate.toDateString("dd/mm/yyyy")}
-        </label>
-      </form>
+        </p>
+      </section>
     </div>
   );
 }

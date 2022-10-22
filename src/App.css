@@ -6,16 +6,21 @@
 }
 
 .homepage {
-  grid-row: 2 3;
-  display: flexbox;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 .chart-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  height: 30vh;
+  margin: 0 auto;
+  grid-template-columns: repeat(3, 33%);
+  grid-template-rows: repeat(3, 33%);
+  height: 100vw;
+  width: 100vw;
+  align-items: center;
 }
 
 .dragon-img {
@@ -25,8 +30,18 @@
 }
 
 .donut-chart {
+  height: 100%;
+  width: 100%;
   margin: auto;
-  overflow: visible;
+  align-items: stretch;
   grid-area: 1/1/4/4;
-  display: inline;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.funds-text {
+  height: 5vh;
+  text-align: center;
 }
