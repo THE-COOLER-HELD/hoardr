@@ -63,3 +63,68 @@
   grid-template-columns: 30% 70%;
   text-align: center;
 }
+
+.add-expense-modal {
+  z-index: 1;
+  position: absolute;
+  background: #202D32;
+  border-radius: 1rem;
+  border: 10px solid #182226;
+  width: 90vw;
+  min-height: 45vh;
+  margin: 0 3%;
+}
+
+.expense-form {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(5,20%);
+  grid-row-gap: 10px;
+  text-align: justify;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.add-button {
+  grid-area: 5/1/5/3;
+  width: 90%;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.expense-head {
+  margin-left: 1rem;
+}
+
+.add-income-modal {
+  z-index: 1;
+  position: absolute;
+  background: #202D32;
+  border-radius: 1rem;
+  border: 10px solid #182226;
+  width: 90vw;
+  min-height: 45vh;
+  margin: 0 3%;
+}
+
+.add-income-form {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(3, 33%);
+  grid-row-gap: 10px;
+  text-align: justify;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.add-hoard-button {
+  margin-right: 10px 
+}
+
+.reset-hoard-button {
+  margin-left: 10px
+}
+
+.income-head {
+  margin-left: 1rem;
+}

@@ -40,7 +40,7 @@ function ViewExpenses() {
 	}
 
 	return (
-		<div>
+		<div width="100vw">
 			<h1>Transactions</h1>
                 <button onClick={toggleExpenseModal}>Add Expense</button>
                 <button onClick={toggleIncomeModal}>Add Income</button>
