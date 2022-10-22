@@ -11,8 +11,6 @@ function Homepage() {
   const [maxFunds, setMaxFunds] = useState(1000);
   const [availableFunds, setAvailableFunds] = useState(1000);
 
-  const [length, setLength] = useState("m"); // m, w, d
-
   const [nextPaymentDate, setNextPaymentDate] = useState(
     new Date(Date.now() + 604800000)
   );
