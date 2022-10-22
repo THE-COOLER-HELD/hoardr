@@ -1,15 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
-import IncomePage from "./components/IncomePage/IncomePage";
-import AddExpense from "./components/AddExpense/AddExpense";
+
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import SignupForm from './components/SignupForm/SignupForm'
+import SignupLogin from './components/SignupLogin/SignupLogin'
+import LoginPage from './components/LoginPage/LoginPage'
+
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <AddExpense />
+      <Routes>
+        <Route path="/" element={<SignupLogin />} />
+        <Route path="/signup" element={<SignupForm />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+
+
     </div>
   );
 }
