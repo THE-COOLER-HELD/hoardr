@@ -20,11 +20,25 @@ export const createUser = (userData) => {
 		.catch((e) => console.log(e));
 };
 
-export const addExpense = async (expense) => {
+export const addTransaction = async (expense) => {
 	const { uuid, amount, category, isNecessary, date, isOutgoing, description = "" } = expense
 	const { data, error } = await supabase
 		.from("transactions")
-		.insert({ user_id: uuid, amount, category, necessary: isNecessary, date, outgoing: isOutgoing, description }).select()
+		.insert({ user_id: uuid, amount, category, necessary: isNecessary, date, outgoing: isOutgoing, description })
+		.select()
+
+	if (error) throw { error }
+	else {
+		console.log(data)
+		return data
+	}
+}
+
+export const viewExpenses = async (uuid) => {
+	const { data, error } = await supabase
+		.from("transactions")
+		.select()
+		.eq("user_id", uuid)
 
 	if (error) throw { error }
 	else {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
-import { addExpense } from "../../supabaseQueries";
+import { addTransaction } from "../../supabaseQueries";
 
 function AddExpense() {
   const [expense, setExpense] = useState({isOutgoing: true, description: ""})
@@ -19,7 +19,7 @@ function AddExpense() {
     event.preventDefault()
     const expenseCopy = {...expense}
     expenseCopy.uuid = user.id
-    addExpense(expenseCopy).then((data) => {
+    addTransaction(expenseCopy).then((data) => {
     })
   }
 

@@ -34,7 +34,7 @@ function Homepage() {
   }
   return (
     <div>
-      <Link to="/expense">To the Expense!</Link>
+      <Link to="/expenses">To the Expense!</Link>
       <section>
         <img src={Dragon} height="500" width="500"></img>
         <Chart options={options} series={series} type="donut" width="500" />
