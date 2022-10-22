@@ -26,7 +26,7 @@ function ExpenseCard({
 				<p>{amount}</p>
 				<p>{outgoing ? 'OUT' : 'IN'}</p>
 				{/* <p>{necessary ? "✅" : "❎"}</p> */}
-				<button onClick={toggleInfo}>+</button>
+				<button onClick={toggleInfo}>{showInfo ? "-" : "+"}</button>
 			</div>
 			{showInfo && (
 				<div className="expense-info">
