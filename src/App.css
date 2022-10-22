@@ -45,3 +45,21 @@
   height: 5vh;
   text-align: center;
 }
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.expense-card {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items:center;
+}
+
+.expense-info {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  text-align: center;
+}

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AddExpense from '../AddExpense/AddExpense';
 import AddIncome from '../AddIncome/AddIncome';
 import ExpenseCard from './ExpenseCard';
-// import { useNavigate } from 'react-router-dom';
 
 function ViewExpenses() {
     const [openExpense, setOpenExpense] = useState(false);
@@ -13,7 +12,15 @@ function ViewExpenses() {
 			category: 'Lifestyle',
 			amount: '5',
 			necessary: true,
-			date: Date.now().toString(),
+			date: new Date(Date.now()).toLocaleDateString('EN', 'dd/mm/yy'),
+			outgoing: true,
+		},
+		{
+			description: 'I went to the market and bought an egg',
+			category: 'Food',
+			amount: '0.72',
+			necessary: true,
+			date: new Date(Date.now()).toLocaleDateString('EN', 'dd/mm/yy'),
 			outgoing: true,
 		},
 	]);
@@ -39,7 +46,7 @@ function ViewExpenses() {
                 <button onClick={toggleIncomeModal}>Add Income</button>
                 {openExpense && <section>{<AddExpense />}</section>}
                 {openIncome && <section>{<AddIncome />}</section>}
-			<ul>
+			<ul className='expense-list'>
 				{expensesList.map((expense) => {
 					return <ExpenseCard expense={expense} />;
 				})}
