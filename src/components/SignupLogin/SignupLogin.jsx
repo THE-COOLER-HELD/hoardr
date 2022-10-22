@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 import SignupForm from "../SignupForm/SignupForm";
 import Homepage from "../Homepage/Homepage";
 import { supabase } from "../../superbaseClient";
@@ -8,29 +9,36 @@ import MagicSignUp from "../MagicSignUp/MagicSignUp";
 function SignupLogin() {
 	const [session, setSession] = useState(null);
 	const [isSignedUp, setIsSignedUp] = useState(false);
+	const { user, setUser } = useContext(UserContext);
+	console.log({ user });
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			setSession(session);
-			getUser(session?.user?.id).then((userData) => {
-				if (userData) setIsSignedUp(true);
-			});
 		});
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			setSession(session);
-			getUser(session?.user?.id).then((userData) => {
-				if (userData) setIsSignedUp(true);
-			});
 		});
 	}, []);
+
+	useEffect(() => {
+		if (session) {
+			getUser(session.user.id).then((userData) => {
+				if (userData) {
+					setIsSignedUp(true);
+					setUser(userData[0]);
+				}
+			});
+		}
+	}, [session]);
 
 	return (
 		<div>
 			{isSignedUp ? (
-				<Homepage key={session.user.id} session={session} />
+				<Homepage session={session} />
 			) : session ? (
-				<SignupForm key={session.user.id} session={session} />
+				<SignupForm session={session} />
 			) : (
 				<MagicSignUp />
 			)}
