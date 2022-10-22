@@ -1,31 +1,50 @@
 import React from "react";
 import { useState } from "react";
+import { supabase } from "../../supabaseClient";
 
 function SignupForm() {
-  const [accountCreated, setAccountCreated] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [email, setEmail] = useState("");
 
-  if (!accountCreated) {
-    return (
-      <div>
-        <button onClick={() => setAccountCreated(true)}>Create Account</button>
-      </div>
-    );
-  }
+	const handleLogin = async (e) => {
+		e.preventDefault();
 
-  return (
-    <div>
-      <form>
-        <label>What should we call you?</label>
-        <input type="text"></input>
-        <label>What's your current hoard?</label>
-        <p>£</p>
-        <input type="number"></input>
-        <label>On what day will your funds get replenished?</label>
-        <input type="date"></input>
-        <button>Submit</button>
-      </form>
-    </div>
-  );
+		try {
+			setLoading(true);
+			const { error } = await supabase.auth.signInWithOtp({ email });
+			if (error) throw error;
+			alert("Check your email for the login link!");
+		} catch (error) {
+			console.log({ error });
+			alert(error.error_description || error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	return (
+		<div>
+			<div aria-live='polite'>
+				<h1>Hoardr</h1>
+				<p>Sign in via magic link with your email below</p>
+				{loading ? (
+					"Sending magic link..."
+				) : (
+					<form onSubmit={handleLogin}>
+						<label htmlFor='email'>Email</label>
+						<input
+							id='email'
+							type='email'
+							placeholder='Your email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+						<button aria-live='polite'>Send magic link</button>
+					</form>
+				)}
+			</div>
+		</div>
+	);
 }
 
 export default SignupForm;

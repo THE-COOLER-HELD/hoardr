@@ -1,18 +1,18 @@
-import React from 'react'
-import { useNavigate } from "react-router-dom"
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-    const navigate = useNavigate();
+	// const navigate = useNavigate();
 
-    function handleLogin() {
-        navigate("/home");
-    }
+	// function handleLogin() {
+	// 	navigate("/home");
+	// }
 
-  return (
-    <div>
-        <button onClick={handleLogin}>Log In</button>
-    </div>
-  )
+	return (
+		<div>
+			<h1>Hello!</h1>
+		</div>
+	);
 }
 
-export default LoginPage
+export default LoginPage;
