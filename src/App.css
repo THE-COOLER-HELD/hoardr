@@ -73,6 +73,11 @@
   grid-area: 2/2/3/3;
 }
 
+.shakeyBoy {
+  animation-name: shakeTheBoy;
+  animation-duration: 1s;
+}
+
 .donut-chart {
   height: 100%;
   width: 100%;
@@ -89,6 +94,13 @@
   font-size: 2rem;
   word-wrap: normal;
   line-height: 2rem;
+}
+
+.feed-button {
+  width: 80vw;
+  height: 6rem;
+  font-size: 3rem;
+  padding: 1px;
 }
 
 .transactions-text {
@@ -190,4 +202,24 @@
 
 .income-head {
   margin-left: 1rem;
+}
+
+@keyframes shakeTheBoy {
+  0% {
+    transform: translateX(-5px);
+  }
+
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
