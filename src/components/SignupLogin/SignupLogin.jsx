@@ -25,7 +25,8 @@ function SignupLogin() {
 	useEffect(() => {
 		if (session) {
 			getUser(session.user.id).then((userData) => {
-				if (userData) {
+				console.log(userData)
+				if (userData.length > 0) {
 					setIsSignedUp(true);
 					setUser(userData[0]);
 				}

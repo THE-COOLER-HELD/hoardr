@@ -6,7 +6,7 @@ export const getUser = async (uuid) => {
 		.select()
 		.eq("id", uuid);
 
-	if (error) return { error };
+	if (error) throw { error };
 	else return data;
 };
 
