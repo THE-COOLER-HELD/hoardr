@@ -9,25 +9,24 @@
   grid-row: 2 3;
   display: flexbox;
   flex-direction: column;
-
 }
 
 .chart-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  height: 50%;
+  grid-template-rows: repeat(3, 1fr);
+  height: 30vh;
 }
 
 .dragon-img {
-  width: 40vw;
-  margin:25%;
+  width: 100%;
   z-index: 2;
   grid-area: 2/2/3/3;
 }
 
 .donut-chart {
-  z-index: 0;
+  margin: auto;
+  overflow: visible;
   grid-area: 1/1/4/4;
-  width: 100%;
+  display: inline;
 }
