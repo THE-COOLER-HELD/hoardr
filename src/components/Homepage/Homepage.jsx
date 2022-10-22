@@ -43,8 +43,8 @@ function Homepage() {
         ></Chart>
       </section>
       <section className="funds-text">
-        <p>
-          You have £{availableFunds} left until{" "}
+        <p className="available-funds-p">
+          You have £{availableFunds} left until <br />
           {nextPaymentDate.toDateString("dd/mm/yyyy")}
         </p>
       </section>

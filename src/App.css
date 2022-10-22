@@ -2,7 +2,51 @@
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: 10% 90%;
+}
+
+.header-container {
+  height: 100%;
+}
+.header-bar {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 100%;
+  align-items: stretch;
+  height: 100%;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.nav-button {
+  width: 100%;
+  font-size: 3rem;
+  border: 10px solid gray;
+}
+
+.material-symbols-outlined {
+  font-size: 4rem;
+  margin: auto;
+}
+
+.nav-list {
+  z-index: 3;
+  position: absolute;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: 100%;
+  /* grid-row-gap: 1px; */
+  min-width: 80vw;
+  min-height: 50vh;
+  right: 5px;
+  justify-content: space-around;
+}
+.hoardr-text {
+  margin: none;
+  align-self: center;
+  padding-top: -0.3rem;
+  margin-left: 1rem;
+  font-size: 5rem;
 }
 
 .homepage {
@@ -41,6 +85,25 @@
   justify-content: center;
 }
 
+.available-funds-p {
+  font-size: 2rem;
+  word-wrap: normal;
+  line-height: 2rem;
+}
+
+.transactions-text {
+  font-size: 2.5rem;
+  margin-left: 1rem;
+}
+
+.add-expense-button {
+  margin-left: 1rem;
+}
+
+.add-income-button {
+  margin-left: 1rem;
+}
+
 .funds-text {
   height: 5vh;
   text-align: center;
@@ -49,13 +112,13 @@
 .expense-list {
   display: flex;
   flex-direction: column;
-
 }
 
 .expense-card {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  justify-items:center;
+  justify-items: center;
+  margin-top: 3px;
 }
 
 .expense-info {
@@ -67,7 +130,7 @@
 .add-expense-modal {
   z-index: 1;
   position: absolute;
-  background: #202D32;
+  background: #202d32;
   border-radius: 1rem;
   border: 10px solid #182226;
   width: 90vw;
@@ -78,7 +141,7 @@
 .expense-form {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: repeat(5,20%);
+  grid-template-rows: repeat(5, 20%);
   grid-row-gap: 10px;
   text-align: justify;
   margin-left: 1rem;
@@ -99,7 +162,7 @@
 .add-income-modal {
   z-index: 1;
   position: absolute;
-  background: #202D32;
+  background: #202d32;
   border-radius: 1rem;
   border: 10px solid #182226;
   width: 90vw;
@@ -118,11 +181,11 @@
 }
 
 .add-hoard-button {
-  margin-right: 10px 
+  margin-right: 10px;
 }
 
 .reset-hoard-button {
-  margin-left: 10px
+  margin-left: 10px;
 }
 
 .income-head {
