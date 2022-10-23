@@ -15,13 +15,13 @@ const useHomepage = () => {
 	const label = ['Spent', 'Left'];
 	const options = {
 		tooltip: { enabled: false },
-		colors: ['#f16663', '#00e685'],
+		colors: ["#f16663", "#00e685"],
 		legend: { show: false, onItemHover: { highlightDataSeries: false } },
 		dataLabels: {
 			formatter: (val, opts) => {
 				return label[opts.seriesIndex];
-			},
-		},
+			}
+		}
 	};
 
 	const [series, setSeries] = useState([]);
@@ -50,8 +50,28 @@ const useHomepage = () => {
 		}
 	}, [boyShake]);
 
+	// uuid,
+	// 	amount,
+	// 	category,
+	// 	isNecessary,
+	// 	date,
+	// 	isOutgoing,
+	// 	description = ""
+
 	function shakeTheBoy() {
 		setBoyShake(true);
+		addToSavings(user.id, 1);
+
+		const expense = {
+			uuid: user.id,
+			amount: 1,
+			category: "savings",
+			date: new Date(Date.now()),
+			isOutgoing: true,
+			description: "fed the boi"
+		};
+
+		addTransaction(expense);
 	}
 
 	function chooseDragon() {
