@@ -37,7 +37,7 @@ function SavingsPot({ setSeries, shakeTheBoy }) {
         setAvailableFunds(data[1] - data[0]);
       })
       .catch((err) => {});
-  }, []);
+  }, [savings]);
 
   return (
     <section className="funds-text">
