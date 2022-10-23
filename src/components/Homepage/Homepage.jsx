@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Dragon from "../../assets/dragon-with-the-coin.png";
 import Chart from "react-apexcharts";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Homepage() {
@@ -53,6 +54,7 @@ function Homepage() {
     }
   }
   return (
+
     <div className="homepage">
       <section className="chart-container">
         <img
@@ -76,6 +78,7 @@ function Homepage() {
         <button onClick={shakeTheBoy} className="feed-button">
           Feed £1
         </button>
+
       </section>
     </div>
   );

@@ -1,6 +1,28 @@
 import React from "react";
+import { useState, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+import { addTransaction } from "../../supabaseQueries";
 
 function AddExpense() {
+  const [expense, setExpense] = useState({isOutgoing: true, description: ""})
+  const { user } = useContext(UserContext)
+
+  const onChange = (key, value) => {
+    setExpense((currentState) => {
+      const expense = {...currentState}
+      expense[key] = value
+      return expense
+    })
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    const expenseCopy = {...expense}
+    expenseCopy.uuid = user.id
+    addTransaction(expenseCopy).then((data) => {
+    })
+  }
+
   return (
 		<div className="add-expense-modal">
 			<h1 className="expense-head">Burn yo cash - 🐲</h1>
@@ -40,6 +62,7 @@ function AddExpense() {
 
 				<label>What date is this for?</label>
 				<input type="date" aria-label="the date of the expense"></input>
+
 
 				<button className="add-button">Add</button>
 			</form>
