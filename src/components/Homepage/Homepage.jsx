@@ -4,10 +4,11 @@ import DragonHearts from "../../assets/dragon-hearts.gif";
 import DragonNeutral from "../../assets/dragon-neutral.gif";
 import DragonSad from "../../assets/dragon-sad.gif";
 import Chart from "react-apexcharts";
+import SavingsPot from "../SavingsPot/SavingsPot";
 import useHomepage from "../../hooks/useHomepage.js"
 
 function Homepage() {
-  const { options, series, maxFunds, availableFunds, nextPaymentDate, boyShake, shakeTheBoy, chooseDragon } = useHomepage()
+  const { options, series, maxFunds, boyShake, shakeTheBoy, chooseDragon } = useHomepage()
 
   return (
     <div className="homepage">
@@ -24,16 +25,7 @@ function Homepage() {
           type="donut"
         ></Chart>
       </section>
-      <section className="funds-text">
-        <p className="available-funds-p">
-          You have £{availableFunds} left until <br />
-          {nextPaymentDate.toDateString("dd/mm/yyyy")}
-        </p>
-
-        <button onClick={shakeTheBoy} className="feed-button">
-          Feed £1
-        </button>
-      </section>
+      <SavingsPot />
     </div>
   );
 }

@@ -73,6 +73,8 @@ const useHomepage = () => {
 		boyShake,
 		shakeTheBoy,
 		chooseDragon,
+        setAvailableFunds,
+        setNextPaymentDate
 	};
 };
 
