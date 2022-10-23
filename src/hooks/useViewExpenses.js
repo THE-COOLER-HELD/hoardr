@@ -1,43 +1,52 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext";
+import { viewTransactions } from "../supabaseQueries";
 
 const useViewExpenses = () => {
-    const [openExpense, setOpenExpense] = useState(false);
-    const [openIncome, setOpenIncome] = useState(false);
-    const [expensesList, setExpensesList] = useState([
-        {
-            description: "Hamster",
-            category: "Lifestyle",
-            amount: "5",
-            necessary: true,
-            date: new Date(Date.now()).toLocaleDateString("EN", "dd/mm/yy"),
-            outgoing: true,
-        },
-        {
-            description: "I went to the market and bought an egg",
-            category: "Food",
-            amount: "0.72",
-            necessary: true,
-            date: new Date(Date.now()).toLocaleDateString("EN", "dd/mm/yy"),
-            outgoing: true,
-        },
-    ]);
+  const { user } = useContext(UserContext);
+  const [filter, setFilter] = useState(null);
+  const [openExpense, setOpenExpense] = useState(false);
+  const [openIncome, setOpenIncome] = useState(false);
+  const [expensesList, setExpensesList] = useState([]);
+  console.log(user);
 
-    function toggleExpenseModal() {
-        if (openIncome) {
-            setOpenIncome(!openIncome);
-        }
-        setOpenExpense(!openExpense);
+  useEffect(() => {
+    if (user.id) {
+      viewTransactions(user.id, filter).then((data) => {
+        setExpensesList(data);
+      });
     }
+  }, [filter]);
 
-    function toggleIncomeModal() {
-        if (openExpense) {
-            setOpenExpense(!openExpense);
-        }
-        setOpenIncome(!openIncome);
+  function filterTransactions(event) {
+    if (event.target.value === "Outgoing") {
+      setFilter(true);
+    } else {
+      setFilter(false);
     }
+  }
 
-    return { openExpense, openIncome, toggleExpenseModal, toggleIncomeModal, expensesList }
+  function toggleExpenseModal() {
+    if (openIncome) {
+      setOpenIncome(!openIncome);
+    }
+    setOpenExpense(!openExpense);
+  }
 
-}
+  function toggleIncomeModal() {
+    if (openExpense) {
+      setOpenExpense(!openExpense);
+    }
+    setOpenIncome(!openIncome);
+  }
 
-export default useViewExpenses
+  return {
+    openExpense,
+    openIncome,
+    toggleExpenseModal,
+    toggleIncomeModal,
+    expensesList,
+  };
+};
+
+export default useViewExpenses;
