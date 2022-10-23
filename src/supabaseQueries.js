@@ -6,8 +6,6 @@ export const getUser = async (uuid) => {
 		.select()
 		.eq("id", uuid);
 
-	console.log({ data });
-
 	if (error) throw { error };
 	else return data;
 };
@@ -47,7 +45,7 @@ export const addTransaction = async (expense) => {
 
 	if (error) throw { error };
 	else {
-		console.log(data);
+		console.log({ data });
 		return data;
 	}
 };
@@ -62,7 +60,6 @@ export const viewTransactions = async (uuid, outgoing) => {
 
 	if (error) throw { error };
 	else {
-		console.log(data);
 		return data;
 	}
 };
@@ -114,14 +111,47 @@ export const addToSavings = async (uuid, amount) => {
 	const [user] = await getUser(uuid);
 	const savings = user.savings;
 
-	const { data, error } = await supabase
+	const { error } = await supabase
 		.from("profiles")
-		.update({ savings: savings + amount })
+		.update({ savings: Number(savings) + Number(amount) })
 		.eq("id", uuid)
 		.select();
 
 	if (error) throw error;
 	else {
+		const { data } = await addTransaction({
+			uuid,
+			amount,
+			category: "Savings",
+			date: new Date(Date.now()),
+			isOutgoing: true,
+			description: "Adding to Savings"
+		});
+		console.log({ data });
+		return data;
+	}
+};
+
+export const withdrawFromSavings = async (uuid, amount) => {
+	const [user] = await getUser(uuid);
+	const savings = user.savings;
+
+	const { error } = await supabase
+		.from("profiles")
+		.update({ savings: Number(savings) - Number(amount) })
+		.eq("id", uuid)
+		.select();
+
+	if (error) throw error;
+	else {
+		const { data } = await addTransaction({
+			uuid,
+			amount,
+			category: "Savings",
+			date: new Date(Date.now()),
+			isOutgoing: false,
+			description: "Withdrawal from Savings"
+		});
 		console.log({ data });
 		return data;
 	}

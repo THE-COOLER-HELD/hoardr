@@ -3,32 +3,48 @@ import AddExpense from "../AddExpense/AddExpense";
 import AddIncome from "../AddIncome/AddIncome";
 import ExpenseCard from "./ExpenseCard";
 import useViewExpenses from "../../hooks/useViewExpenses";
+import AddSavings from "../AddSavings/AddSavings";
 
 function ViewExpenses() {
 	const {
 		openExpense,
 		openIncome,
+		openSavings,
 		toggleExpenseModal,
 		toggleIncomeModal,
+		toggleSavingsModal,
 		expensesList,
 		filterTransactions
 	} = useViewExpenses();
 
 	return (
-		<div width='100vw'>
+		<div className='transaction-page-container'>
 			<h2 className='transactions-text'>Transactions</h2>
-			<button className='add-expense-button' onClick={toggleExpenseModal}>
-				Add Expense
-			</button>
-			<button className='add-income-button' onClick={toggleIncomeModal}>
-				Add Income
-			</button>
+			<section className='transaction-button-container'>
+				<button
+					className='transaction-list-button'
+					onClick={toggleExpenseModal}
+				>
+					Add Expense
+				</button>
+				<button className='transaction-list-button' onClick={toggleIncomeModal}>
+					Add Income
+				</button>
+				<button
+					className='transaction-list-button'
+					onClick={toggleSavingsModal}
+				>
+					View Savings
+				</button>
+			</section>
 			<select onChange={filterTransactions}>
 				<option>Incoming</option>
 				<option>Outgoing</option>
 			</select>
 			{openExpense && <section>{<AddExpense />}</section>}
 			{openIncome && <section>{<AddIncome />}</section>}
+			{openSavings && <section>{<AddSavings />}</section>}
+
 			<ul className='expense-list'>
 				{expensesList.map((expense) => {
 					return (

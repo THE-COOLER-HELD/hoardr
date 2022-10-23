@@ -7,13 +7,12 @@ const useViewExpenses = () => {
 	const [filter, setFilter] = useState(null);
 	const [openExpense, setOpenExpense] = useState(false);
 	const [openIncome, setOpenIncome] = useState(false);
+	const [openSavings, setOpenSavings] = useState(false);
 	const [expensesList, setExpensesList] = useState([]);
-	console.log(user);
 
 	useEffect(() => {
 		if (user.id) {
 			viewTransactions(user.id, filter).then((data) => {
-				console.log({ data });
 				setExpensesList(data);
 			});
 		}
@@ -28,17 +27,27 @@ const useViewExpenses = () => {
 	}
 
 	function toggleExpenseModal() {
-		if (openIncome) {
-			setOpenIncome(!openIncome);
+		if (openIncome || openSavings) {
+			setOpenIncome(false);
+			setOpenSavings(false);
 		}
 		setOpenExpense(!openExpense);
 	}
 
 	function toggleIncomeModal() {
-		if (openExpense) {
-			setOpenExpense(!openExpense);
+		if (openExpense || openSavings) {
+			setOpenExpense(false);
+			setOpenSavings(false);
 		}
 		setOpenIncome(!openIncome);
+	}
+
+	function toggleSavingsModal() {
+		if (openSavings || openExpense) {
+			setOpenExpense(false);
+			setOpenIncome(false);
+		}
+		setOpenSavings(!openSavings);
 	}
 
 	return {
@@ -47,7 +56,9 @@ const useViewExpenses = () => {
 		toggleExpenseModal,
 		toggleIncomeModal,
 		expensesList,
-		filterTransactions
+		filterTransactions,
+		toggleSavingsModal,
+		openSavings
 	};
 };
 
