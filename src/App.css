@@ -11,14 +11,16 @@ body {
 }
 
 .App {
-  max-height: 100vh;
+  height: 100vh;
   width: 100vw;
   display: grid;
   grid-template-rows: 10% 90%;
+  grid-template-columns: 100%;
 }
 
 .header-container {
   height: 100%;
+  grid-area: 1/1/2/2;
 }
 .header-bar {
   display: grid;
@@ -42,7 +44,7 @@ body {
 }
 
 .material-symbols-outlined {
-  font-size: 4rem;
+  font-size: 3rem;
   margin: auto;
 }
 
