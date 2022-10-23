@@ -1,8 +1,17 @@
+:root {
+  --main-bg-color: #000087;
+
+  --text: #f7fef6;
+
+  --dark-accent: #00003f;
+}
+
 .App {
   height: 100vh;
   width: 100vw;
   display: grid;
   grid-template-rows: 10% 90%;
+  background-color: var(--main-bg-color);
 }
 
 .header-container {
@@ -22,6 +31,11 @@
   width: 100%;
   font-size: 3rem;
   border: 10px solid gray;
+  background-color: var(--dark-accent);
+}
+
+.nav-menu-toggle {
+  background-color: var(--dark-accent);
 }
 
 .material-symbols-outlined {
@@ -47,6 +61,7 @@
   padding-top: -0.3rem;
   margin-left: 1rem;
   font-size: 5rem;
+  color: var(--text);
 }
 
 .homepage {
@@ -94,6 +109,8 @@
   font-size: 2rem;
   word-wrap: normal;
   line-height: 2rem;
+  color: var(--text);
+  font-weight: bolder;
 }
 
 .feed-button {
@@ -101,6 +118,8 @@
   height: 6rem;
   font-size: 3rem;
   padding: 1px;
+  color: var(--text);
+  background-color: var(--dark-accent);
 }
 
 .transactions-text {
@@ -110,10 +129,12 @@
 
 .add-expense-button {
   margin-left: 1rem;
+  background-color: var(--dark-accent);
 }
 
 .add-income-button {
   margin-left: 1rem;
+  background-color: var(--dark-accent);
 }
 
 .funds-text {
@@ -165,6 +186,7 @@
   width: 90%;
   border-radius: 5px;
   margin: auto;
+  background-color: var(--dark-accent);
 }
 
 .expense-head {
@@ -194,10 +216,12 @@
 
 .add-hoard-button {
   margin-right: 10px;
+  background-color: var(--dark-accent);
 }
 
 .reset-hoard-button {
   margin-left: 10px;
+  background-color: var(--dark-accent);
 }
 
 .income-head {
@@ -206,20 +230,16 @@
 
 @keyframes shakeTheBoy {
   0% {
-    transform: translateX(-5px);
+    transform: translateX(-4px) rotate(-4deg);
   }
 
-  25% {
-    transform: translateX(5px);
+  30% {
+    transform: translateX(2px) rotate(2deg);
   }
   50% {
-    transform: translateX(-5px);
+    transform: translateX(-2px) rotate(-1deg);
   }
-
-  75% {
-    transform: translateX(5px);
-  }
-  100% {
-    transform: translateX(0);
+  60% {
+    transform: translateX(0) rotate(0deg);
   }
 }

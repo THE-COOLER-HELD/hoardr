@@ -6,8 +6,15 @@ import { useState } from "react";
 function Homepage() {
   const [options, setOptions] = useState({
     legend: { show: false },
-    labels: ["Spent", "Left", "Savings"],
+    dataLabels: {
+      formatter: (val, opts) => {
+        console.log(val, opts);
+        return label[opts.seriesIndex];
+      },
+    },
   });
+
+  const label = ["Spent", "Left", "Savings"];
   const [series, setSeries] = useState([24, 50, 20]);
   const [maxFunds, setMaxFunds] = useState(1000);
   const [availableFunds, setAvailableFunds] = useState(1000);
