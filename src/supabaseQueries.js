@@ -73,7 +73,6 @@ export const fetchIncomes = async (uuid) => {
 
 	if (error) throw { error };
 	else {
-		console.log(data, "i am the data in queries");
 		return data;
 	}
 };
@@ -93,6 +92,7 @@ export const calcTotals = async (uuid) => {
 
 	return [totalOut, totalIn];
 };
+
 export const fetchOutgoing = async (uuid) => {
 	const { data, error } = await supabase
 		.from("transactions")
@@ -102,7 +102,6 @@ export const fetchOutgoing = async (uuid) => {
 
 	if (error) throw { error };
 	else {
-		console.log(data, "i am the data in queries");
 		return data;
 	}
 };
@@ -155,4 +154,14 @@ export const withdrawFromSavings = async (uuid, amount) => {
 		console.log({ data });
 		return data;
 	}
+};
+
+export const updateNextPaymentDate = async (uuid, date) => {
+	const { error, data } = await supabase
+		.from("profiles")
+		.update({ next_payment_date: date })
+		.eq("id", uuid);
+
+	if (error) throw error;
+	return data;
 };
