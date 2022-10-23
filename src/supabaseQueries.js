@@ -6,6 +6,8 @@ export const getUser = async (uuid) => {
 		.select()
 		.eq("id", uuid);
 
+	console.log({ data });
+
 	if (error) throw { error };
 	else return data;
 };
@@ -104,6 +106,23 @@ export const fetchOutgoing = async (uuid) => {
 	if (error) throw { error };
 	else {
 		console.log(data, "i am the data in queries");
+		return data;
+	}
+};
+
+export const addToSavings = async (uuid, amount) => {
+	const [user] = await getUser(uuid);
+	const savings = user.savings;
+
+	const { data, error } = await supabase
+		.from("profiles")
+		.update({ savings: savings + amount })
+		.eq("id", uuid)
+		.select();
+
+	if (error) throw error;
+	else {
+		console.log({ data });
 		return data;
 	}
 };

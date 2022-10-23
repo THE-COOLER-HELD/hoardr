@@ -1,19 +1,19 @@
-import { useState, useEffect, useContext } from 'react';
-import UserContext from '../contexts/UserContext';
-import { calcTotals } from '../supabaseQueries';
+import { useState, useEffect, useContext } from "react";
+import UserContext from "../contexts/UserContext";
+import { addToSavings, calcTotals, addTransaction } from "../supabaseQueries";
 
 const useHomepage = () => {
 	const { user } = useContext(UserContext);
-	const label = ['Spent', 'Left'];
+	const label = ["Spent", "Left"];
 	const options = {
 		tooltip: { enabled: false },
-		colors: ['#f16663', '#00e685'],
+		colors: ["#f16663", "#00e685"],
 		legend: { show: false, onItemHover: { highlightDataSeries: false } },
 		dataLabels: {
 			formatter: (val, opts) => {
 				return label[opts.seriesIndex];
-			},
-		},
+			}
+		}
 	};
 
 	const [series, setSeries] = useState([]);
@@ -22,8 +22,8 @@ const useHomepage = () => {
 
 	const [nextPaymentDate, setNextPaymentDate] = useState(
 		new Date(Date.now() + 604800000)
-    );
-    
+	);
+
 	async function fetchTotals() {
 		if (user.id) {
 			setSeries(await calcTotals(user.id));
@@ -44,8 +44,28 @@ const useHomepage = () => {
 		}
 	}, [boyShake]);
 
+	// uuid,
+	// 	amount,
+	// 	category,
+	// 	isNecessary,
+	// 	date,
+	// 	isOutgoing,
+	// 	description = ""
+
 	function shakeTheBoy() {
 		setBoyShake(true);
+		addToSavings(user.id, 1);
+
+		const expense = {
+			uuid: user.id,
+			amount: 1,
+			category: "savings",
+			date: new Date(Date.now()),
+			isOutgoing: true,
+			description: "fed the boi"
+		};
+
+		addTransaction(expense);
 	}
 
 	function chooseDragon() {
@@ -72,7 +92,7 @@ const useHomepage = () => {
 		nextPaymentDate,
 		boyShake,
 		shakeTheBoy,
-		chooseDragon,
+		chooseDragon
 	};
 };
 
