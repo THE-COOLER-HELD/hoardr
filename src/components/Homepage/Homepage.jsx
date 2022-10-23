@@ -5,10 +5,11 @@ import DragonNeutral from "../../assets/dragon-neutral.gif";
 import DragonSad from "../../assets/dragon-sad.gif";
 import Chart from "react-apexcharts";
 import SavingsPot from "../SavingsPot/SavingsPot";
-import useHomepage from "../../hooks/useHomepage.js"
+import useHomepage from "../../hooks/useHomepage.js";
 
 function Homepage() {
-  const { options, series, boyShake, shakeTheBoy, dragon } = useHomepage()
+  const { options, series, boyShake, shakeTheBoy, dragon, setSeries } =
+    useHomepage();
 
   return (
     <div className="homepage">
@@ -25,7 +26,7 @@ function Homepage() {
           type="donut"
         ></Chart>
       </section>
-      <SavingsPot shakeTheBoy={shakeTheBoy} />
+      <SavingsPot shakeTheBoy={shakeTheBoy} setSeries={setSeries} />
     </div>
   );
 }

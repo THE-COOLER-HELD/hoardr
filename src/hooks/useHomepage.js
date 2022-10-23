@@ -1,101 +1,113 @@
-import { useState, useEffect, useContext } from 'react';
-import UserContext from '../contexts/UserContext';
-import { calcTotals } from '../supabaseQueries';
-import DragonHappy from '../assets/dragon-happy.gif';
-import DragonHearts from '../assets/dragon-hearts.gif';
-import DragonNeutral from '../assets/dragon-neutral.gif';
-import DragonSad from '../assets/dragon-sad.gif';
-import { addToSavings, addTransaction } from '../supabaseQueries';
-
+import { useState, useEffect, useContext } from "react";
+import UserContext from "../contexts/UserContext";
+import { calcTotals } from "../supabaseQueries";
+import DragonHappy from "../assets/dragon-happy.gif";
+import DragonHearts from "../assets/dragon-hearts.gif";
+import DragonNeutral from "../assets/dragon-neutral.gif";
+import DragonSad from "../assets/dragon-sad.gif";
+import { addToSavings, addTransaction } from "../supabaseQueries";
 
 const useHomepage = () => {
-	const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-	const newDate =`${user.next_payment_date.slice(-2)}/${user.next_payment_date.slice(-5,-3)}/${user.next_payment_date.slice(0, 4)}`;
+  const newDate = `${user.next_payment_date.slice(
+    -2
+  )}/${user.next_payment_date.slice(-5, -3)}/${user.next_payment_date.slice(
+    0,
+    4
+  )}`;
 
-	const label = ['Spent', 'Left'];
-	const options = {
-		tooltip: { enabled: false },
-		colors: ["#f16663", "#00e685"],
-		legend: { show: false, onItemHover: { highlightDataSeries: false } },
-		dataLabels: {
-			formatter: (val, opts) => {
-				return label[opts.seriesIndex];
-			}
-		}
-	};
+  const label = ["Spent", "Left"];
+  const options = {
+    tooltip: { enabled: false },
+    colors: ["#f16663", "#00e685"],
+    legend: { show: false, onItemHover: { highlightDataSeries: false } },
+    dataLabels: {
+      formatter: (val, opts) => {
+        return label[opts.seriesIndex];
+      },
+    },
+  };
 
-	const [series, setSeries] = useState([]);
-	const [dragon, setDragon] = useState(null);
-	const [availableFunds, setAvailableFunds] = useState(0);
-	const [nextPaymentDate, setNextPaymentDate] = useState(
-		newDate
-    );
-    
-	async function fetchTotals() {
-		if (user.id) {
-			setSeries(await calcTotals(user.id));
-		}
-	}
+  const [series, setSeries] = useState([]);
+  const [dragon, setDragon] = useState(null);
+  const [availableFunds, setAvailableFunds] = useState(0);
+  const [nextPaymentDate, setNextPaymentDate] = useState(newDate);
 
-	const [boyShake, setBoyShake] = useState(false);
+  async function fetchTotals() {
+    if (user.id) {
+      setSeries(await calcTotals(user.id));
+    }
+  }
 
-	useEffect(() => {
-		fetchTotals();
-	}, [user]);
+  const [boyShake, setBoyShake] = useState(false);
 
-	useEffect(() => {
-		setDragon(chooseDragon())
-	}, [series])
+  useEffect(() => {
+    fetchTotals();
+  }, [user]);
 
-	useEffect(() => {
-		if (boyShake) {
-			setTimeout(() => {
-				setBoyShake(false);
-			}, 1500);
-		}
-	}, [boyShake]);
+  useEffect(() => {
+    setDragon(chooseDragon());
+  }, [series]);
 
-	// uuid,
-	// 	amount,
-	// 	category,
-	// 	isNecessary,
-	// 	date,
-	// 	isOutgoing,
-	// 	description = ""
+  useEffect(() => {
+    if (boyShake) {
+      setTimeout(() => {
+        setBoyShake(false);
+      }, 1500);
+    }
+  }, [boyShake]);
 
-	function shakeTheBoy() {
-		setBoyShake(true);
-		addToSavings(user.id, 1);
+  // uuid,
+  // 	amount,
+  // 	category,
+  // 	isNecessary,
+  // 	date,
+  // 	isOutgoing,
+  // 	description = ""
 
-		const expense = {
-			uuid: user.id,
-			amount: 1,
-			category: "savings",
-			date: new Date(Date.now()),
-			isOutgoing: true,
-			description: "fed the boi"
-		};
+  function shakeTheBoy() {
+    setBoyShake(true);
+    addToSavings(user.id, 1).then((data) => {
+      console.log({ data }, "in the shaekboy");
+      //   setSeries((currSeries) => {
+      //     const copy = [...currSeries];
+      //     copy[1]--;
+      //     return copy;
+      //   });
+      setAvailableFunds(availableFunds - 2);
+    });
 
-		addTransaction(expense);
-	}
+    const expense = {
+      uuid: user.id,
+      amount: 1,
+      category: "savings",
+      date: new Date(Date.now()),
+      isOutgoing: true,
+      description: "fed the boi",
+    };
 
-	function chooseDragon() {
-		const random = Math.random() * 100
-		return random >= 50 ? DragonHappy : DragonNeutral		
-	}
+    addTransaction(expense);
+  }
 
-	return {
-		options,
-		series,
-		availableFunds,
-		nextPaymentDate,
-		boyShake,
-		shakeTheBoy,
-		dragon,
-        setAvailableFunds,
-        setNextPaymentDate
-	};
+  function chooseDragon() {
+    const random = Math.random() * 100;
+    return random >= 50 ? DragonHappy : DragonNeutral;
+  }
+
+  return {
+    options,
+    series,
+    availableFunds,
+    nextPaymentDate,
+    boyShake,
+    shakeTheBoy,
+    setBoyShake,
+    dragon,
+    setAvailableFunds,
+    setNextPaymentDate,
+    setSeries,
+  };
 };
 
 export default useHomepage;
