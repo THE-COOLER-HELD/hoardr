@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Dragon from "../../assets/dragon-with-the-coin.png";
 import Chart from "react-apexcharts";
 import { Link } from "react-router-dom";
@@ -6,16 +6,37 @@ import { useState } from "react";
 
 function Homepage() {
   const [options, setOptions] = useState({
-    labels: ["Spend", "B", "C", "D", "E"],
+    legend: { show: false },
+    dataLabels: {
+      formatter: (val, opts) => {
+        console.log(val, opts);
+        return label[opts.seriesIndex];
+      },
+    },
   });
-  const [series, setSeries] = useState([44, 55, 41, 17, 15]);
+
+  const label = ["Spent", "Left", "Savings"];
+  const [series, setSeries] = useState([24, 50, 20]);
   const [maxFunds, setMaxFunds] = useState(1000);
   const [availableFunds, setAvailableFunds] = useState(1000);
 
   const [nextPaymentDate, setNextPaymentDate] = useState(
     new Date(Date.now() + 604800000)
   );
-  console.log(nextPaymentDate);
+
+  const [boyShake, setBoyShake] = useState(false);
+
+  useEffect(() => {
+    if (boyShake) {
+      setTimeout(() => {
+        setBoyShake(false);
+      }, 1500);
+    }
+  }, [boyShake]);
+
+  function shakeTheBoy() {
+    setBoyShake(true);
+  }
 
   function chooseDragon() {
     const percentage = maxFunds / availableFunds;
@@ -33,18 +54,31 @@ function Homepage() {
     }
   }
   return (
-    <div>
-      <Link to="/expenses">To the Expense!</Link>
-      <section>
-        <img src={Dragon} height="500" width="500"></img>
-        <Chart options={options} series={series} type="donut" width="500" />
 
-        <form>
-          <label>
-            You have £{availableFunds} left until{" "}
-            {nextPaymentDate.toDateString("dd/mm/yyyy")}
-          </label>
-        </form>
+    <div className="homepage">
+      <section className="chart-container">
+        <img
+          className={`dragon-img ${boyShake ? "shakeyBoy" : ""}`}
+          alt="dragon logo"
+          src={Dragon}
+        ></img>
+        <Chart
+          className="donut-chart"
+          options={options}
+          series={series}
+          type="donut"
+        ></Chart>
+      </section>
+      <section className="funds-text">
+        <p className="available-funds-p">
+          You have £{availableFunds} left until <br />
+          {nextPaymentDate.toDateString("dd/mm/yyyy")}
+        </p>
+
+        <button onClick={shakeTheBoy} className="feed-button">
+          Feed £1
+        </button>
+
       </section>
     </div>
   );
