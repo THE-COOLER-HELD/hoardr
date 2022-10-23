@@ -277,3 +277,13 @@
 		transform: translateX(0) rotate(0deg);
 	}
 }
+
+.potogold {
+  width: 20vw;
+}
+
+.savings-desc {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.5rem;
+}

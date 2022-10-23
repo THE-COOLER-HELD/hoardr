@@ -1,10 +1,18 @@
-import { useState, useEffect, useContext } from "react";
-import UserContext from "../contexts/UserContext";
-import { addToSavings, calcTotals, addTransaction } from "../supabaseQueries";
+import { useState, useEffect, useContext } from 'react';
+import UserContext from '../contexts/UserContext';
+import { calcTotals } from '../supabaseQueries';
+import DragonHappy from '../assets/dragon-happy.gif';
+import DragonHearts from '../assets/dragon-hearts.gif';
+import DragonNeutral from '../assets/dragon-neutral.gif';
+import DragonSad from '../assets/dragon-sad.gif';
+
 
 const useHomepage = () => {
 	const { user } = useContext(UserContext);
-	const label = ["Spent", "Left"];
+
+	const newDate =`${user.next_payment_date.slice(-2)}/${user.next_payment_date.slice(-5,-3)}/${user.next_payment_date.slice(0, 4)}`;
+
+	const label = ['Spent', 'Left'];
 	const options = {
 		tooltip: { enabled: false },
 		colors: ["#f16663", "#00e685"],
@@ -17,13 +25,11 @@ const useHomepage = () => {
 	};
 
 	const [series, setSeries] = useState([]);
-	const [maxFunds, setMaxFunds] = useState(1000);
-	const [availableFunds, setAvailableFunds] = useState(1000);
-
+	const [availableFunds, setAvailableFunds] = useState(0);
 	const [nextPaymentDate, setNextPaymentDate] = useState(
-		new Date(Date.now() + 604800000)
-	);
-
+		newDate
+    );
+    
 	async function fetchTotals() {
 		if (user.id) {
 			setSeries(await calcTotals(user.id));
@@ -69,30 +75,33 @@ const useHomepage = () => {
 	}
 
 	function chooseDragon() {
-		const percentage = maxFunds / availableFunds;
+		const maxFunds = series[1];
+		const percentage = maxFunds / series[0]
+		
 		const thirdOfMax = maxFunds / 3;
 		if (percentage > thirdOfMax * 2) {
-			return Dragon1;
+			return DragonHappy;
 		}
 
 		if (percentage > thirdOfMax) {
-			return Dragon2;
+			return DragonNeutral;
 		}
 
 		if (percentage < thirdOfMax) {
-			return Dragon3;
+			return DragonSad;
 		}
 	}
 
 	return {
 		options,
 		series,
-		maxFunds,
 		availableFunds,
 		nextPaymentDate,
 		boyShake,
 		shakeTheBoy,
-		chooseDragon
+		chooseDragon,
+        setAvailableFunds,
+        setNextPaymentDate
 	};
 };
 

@@ -4,47 +4,30 @@ import DragonHearts from "../../assets/dragon-hearts.gif";
 import DragonNeutral from "../../assets/dragon-neutral.gif";
 import DragonSad from "../../assets/dragon-sad.gif";
 import Chart from "react-apexcharts";
-import useHomepage from "../../hooks/useHomepage.js";
+import SavingsPot from "../SavingsPot/SavingsPot";
+import useHomepage from "../../hooks/useHomepage.js"
 
 function Homepage() {
-	const {
-		options,
-		series,
-		maxFunds,
-		availableFunds,
-		nextPaymentDate,
-		boyShake,
-		shakeTheBoy,
-		chooseDragon
-	} = useHomepage();
+  const { options, series, maxFunds, boyShake, shakeTheBoy, chooseDragon } = useHomepage()
 
-	return (
-		<div className='homepage'>
-			<section className='chart-container'>
-				<img
-					className={`dragon-img ${boyShake ? "shakeyBoy" : ""}`}
-					alt='dragon logo'
-					src={DragonHappy}
-				></img>
-				<Chart
-					className='donut-chart'
-					options={options}
-					series={series}
-					type='donut'
-				></Chart>
-			</section>
-			<section className='funds-text'>
-				<p className='available-funds-p'>
-					You have £{availableFunds} left until <br />
-					{nextPaymentDate.toDateString("dd/mm/yyyy")}
-				</p>
-
-				<button onClick={shakeTheBoy} className='feed-button'>
-					Feed £1
-				</button>
-			</section>
-		</div>
-	);
+  return (
+    <div className="homepage">
+      <section className="chart-container">
+        <img
+          className={`dragon-img ${boyShake ? "shakeyBoy" : ""}`}
+          alt="dragon logo"
+          src={chooseDragon()}
+        ></img>
+        <Chart
+          className="donut-chart"
+          options={options}
+          series={series}
+          type="donut"
+        ></Chart>
+      </section>
+      <SavingsPot />
+    </div>
+  );
 }
 
 export default Homepage;
