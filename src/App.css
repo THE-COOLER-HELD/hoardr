@@ -177,7 +177,7 @@ body {
   border-radius: 1rem;
   border: 10px solid #182226;
   width: 90vw;
-  min-height: 45vh;
+  min-height: 50vh;
   margin: 0 3%;
 }
 
@@ -253,7 +253,7 @@ body {
 }
 
 .add-hoard-button {
-  grid-area: 3/1/4/2;
+  grid-area: 3/1/4/3;
   margin-right: 10px;
   background-color: var(--dark-accent);
 }
