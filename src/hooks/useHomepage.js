@@ -1,56 +1,79 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from 'react';
+import UserContext from '../contexts/UserContext';
+import { calcTotals } from '../supabaseQueries';
 
 const useHomepage = () => {
-    const label = ["Spent", "Left", "Savings"];
-    const options = {
-        legend: { show: false },
-        dataLabels: {
-            formatter: (val, opts) => {
-                console.log(val, opts);
-                return label[opts.seriesIndex];
-            },
-        },
-    };
+	const { user } = useContext(UserContext);
+	const label = ['Spent', 'Left'];
+	const options = {
+		tooltip: { enabled: false },
+		colors: ['#f16663', '#00e685'],
+		legend: { show: false, onItemHover: { highlightDataSeries: false } },
+		dataLabels: {
+			formatter: (val, opts) => {
+				return label[opts.seriesIndex];
+			},
+		},
+	};
 
-    const [series, setSeries] = useState([24, 50, 20]);
-    const [maxFunds, setMaxFunds] = useState(1000);
-    const [availableFunds, setAvailableFunds] = useState(1000);
+	const [series, setSeries] = useState([]);
+	const [maxFunds, setMaxFunds] = useState(1000);
+	const [availableFunds, setAvailableFunds] = useState(1000);
 
-    const [nextPaymentDate, setNextPaymentDate] = useState(
-        new Date(Date.now() + 604800000)
+	const [nextPaymentDate, setNextPaymentDate] = useState(
+		new Date(Date.now() + 604800000)
     );
+    
+	async function fetchTotals() {
+		if (user.id) {
+			setSeries(await calcTotals(user.id));
+		}
+	}
 
-    const [boyShake, setBoyShake] = useState(false);
+	const [boyShake, setBoyShake] = useState(false);
 
-    useEffect(() => {
-        if (boyShake) {
-            setTimeout(() => {
-                setBoyShake(false);
-            }, 1500);
-        }
-    }, [boyShake]);
+	useEffect(() => {
+		fetchTotals();
+	}, [user]);
 
-    function shakeTheBoy() {
-        setBoyShake(true);
-    }
+	useEffect(() => {
+		if (boyShake) {
+			setTimeout(() => {
+				setBoyShake(false);
+			}, 1500);
+		}
+	}, [boyShake]);
 
-    function chooseDragon() {
-        const percentage = maxFunds / availableFunds;
-        const thirdOfMax = maxFunds / 3;
-        if (percentage > thirdOfMax * 2) {
-            return Dragon1;
-        }
+	function shakeTheBoy() {
+		setBoyShake(true);
+	}
 
-        if (percentage > thirdOfMax) {
-            return Dragon2;
-        }
+	function chooseDragon() {
+		const percentage = maxFunds / availableFunds;
+		const thirdOfMax = maxFunds / 3;
+		if (percentage > thirdOfMax * 2) {
+			return Dragon1;
+		}
 
-        if (percentage < thirdOfMax) {
-            return Dragon3;
-        }
-    }
+		if (percentage > thirdOfMax) {
+			return Dragon2;
+		}
 
-    return { options, series, maxFunds, availableFunds, nextPaymentDate, boyShake, shakeTheBoy, chooseDragon }
-}
+		if (percentage < thirdOfMax) {
+			return Dragon3;
+		}
+	}
 
-export default useHomepage
+	return {
+		options,
+		series,
+		maxFunds,
+		availableFunds,
+		nextPaymentDate,
+		boyShake,
+		shakeTheBoy,
+		chooseDragon,
+	};
+};
+
+export default useHomepage;
