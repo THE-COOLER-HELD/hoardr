@@ -34,15 +34,19 @@ export const addTransaction = async (expense) => {
 	}
 }
 
-export const viewExpenses = async (uuid) => {
-	const { data, error } = await supabase
-		.from("transactions")
-		.select()
-		.eq("user_id", uuid)
-
+export const viewTransactions = async (uuid, outgoing) => {
+	let query = supabase.from("transactions").select().eq("user_id", uuid);
+	if (!outgoing.isNull()) query = query.eq("outgoing", outgoing);
+	
+	const { data, error } = await query
+	// 	.from("transactions")
+	// 	.select()
+	// 	.eq("user_id", uuid)
 	if (error) throw { error }
 	else {
 		console.log(data)
 		return data
 	}
 }
+
+
