@@ -1,62 +1,61 @@
-import React, { useState } from "react";
+import React from "react";
 import AddExpense from "../AddExpense/AddExpense";
 import AddIncome from "../AddIncome/AddIncome";
 import ExpenseCard from "./ExpenseCard";
+import useViewExpenses from "../../hooks/useViewExpenses";
+import AddSavings from "../AddSavings/AddSavings";
 
 function ViewExpenses() {
-  const [openExpense, setOpenExpense] = useState(false);
-  const [openIncome, setOpenIncome] = useState(false);
-  const [expensesList, setExpensesList] = useState([
-    {
-      description: "Hamster",
-      category: "Lifestyle",
-      amount: "5",
-      necessary: true,
-      date: new Date(Date.now()).toLocaleDateString("EN", "dd/mm/yy"),
-      outgoing: true,
-    },
-    {
-      description: "I went to the market and bought an egg",
-      category: "Food",
-      amount: "0.72",
-      necessary: true,
-      date: new Date(Date.now()).toLocaleDateString("EN", "dd/mm/yy"),
-      outgoing: true,
-    },
-  ]);
+	const {
+		openExpense,
+		openIncome,
+		openSavings,
+		toggleExpenseModal,
+		toggleIncomeModal,
+		toggleSavingsModal,
+		expensesList,
+		filterTransactions
+	} = useViewExpenses();
 
-  function toggleExpenseModal() {
-    if (openIncome) {
-      setOpenIncome(!openIncome);
-    }
-    setOpenExpense(!openExpense);
-  }
+	return (
+		<div className='transaction-page-container'>
+			<h2 className='transactions-text'>Transactions</h2>
+			<section className='transaction-button-container'>
+				<button
+					className='transaction-list-button'
+					onClick={toggleExpenseModal}
+				>
+					Add Expense
+				</button>
+				<button className='transaction-list-button' onClick={toggleIncomeModal}>
+					Add Income
+				</button>
+				<button
+					className='transaction-list-button'
+					onClick={toggleSavingsModal}
+				>
+					View Savings
+				</button>
+			</section>
+			<select onChange={filterTransactions}>
+				<option>Incoming</option>
+				<option>Outgoing</option>
+			</select>
+			{openExpense && <section>{<AddExpense />}</section>}
+			{openIncome && <section>{<AddIncome />}</section>}
+			{openSavings && <section>{<AddSavings />}</section>}
 
-  function toggleIncomeModal() {
-    if (openExpense) {
-      setOpenExpense(!openExpense);
-    }
-    setOpenIncome(!openIncome);
-  }
-
-  return (
-    <div width="100vw">
-      <h2 className="transactions-text">Transactions</h2>
-      <button className="add-expense-button" onClick={toggleExpenseModal}>
-        Add Expense
-      </button>
-      <button className="add-income-button" onClick={toggleIncomeModal}>
-        Add Income
-      </button>
-      {openExpense && <section>{<AddExpense />}</section>}
-      {openIncome && <section>{<AddIncome />}</section>}
-      <ul className="expense-list">
-        {expensesList.map((expense) => {
-          return <ExpenseCard expense={expense} />;
-        })}
-      </ul>
-    </div>
-  );
+			<ul className='expense-list'>
+				{expensesList.map((expense) => {
+					return (
+						<li key={expense.transaction_id}>
+							<ExpenseCard expense={expense} />
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+	);
 }
 
 export default ViewExpenses;
