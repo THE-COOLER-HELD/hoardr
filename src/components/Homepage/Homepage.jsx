@@ -8,7 +8,7 @@ import SavingsPot from "../SavingsPot/SavingsPot";
 import useHomepage from "../../hooks/useHomepage.js"
 
 function Homepage() {
-  const { options, series, maxFunds, boyShake, shakeTheBoy, chooseDragon } = useHomepage()
+  const { options, series, boyShake, shakeTheBoy, dragon } = useHomepage()
 
   return (
     <div className="homepage">
@@ -16,7 +16,7 @@ function Homepage() {
         <img
           className={`dragon-img ${boyShake ? "shakeyBoy" : ""}`}
           alt="dragon logo"
-          src={chooseDragon()}
+          src={dragon}
         ></img>
         <Chart
           className="donut-chart"

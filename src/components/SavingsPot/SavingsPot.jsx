@@ -16,7 +16,6 @@ function SavingsPot() {
   } = useHomepage();
 
   function toggleSavings(event) {
-    console.log("clicked")
     setShowSavings(!showSavings)
   }
 
