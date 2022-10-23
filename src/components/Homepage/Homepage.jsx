@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import Dragon from "../../assets/dragon-with-the-coin.png";
+import DragonHappy from "../../assets/dragon-happy.gif";
+import DragonHearts from "../../assets/dragon-hearts.gif";
+import DragonNeutral from "../../assets/dragon-neutral.gif";
+import DragonSad from "../../assets/dragon-sad.gif";
 import Chart from "react-apexcharts";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Homepage() {
@@ -54,13 +56,12 @@ function Homepage() {
     }
   }
   return (
-
     <div className="homepage">
       <section className="chart-container">
         <img
           className={`dragon-img ${boyShake ? "shakeyBoy" : ""}`}
           alt="dragon logo"
-          src={Dragon}
+          src={DragonHappy}
         ></img>
         <Chart
           className="donut-chart"
@@ -78,7 +79,6 @@ function Homepage() {
         <button onClick={shakeTheBoy} className="feed-button">
           Feed £1
         </button>
-
       </section>
     </div>
   );
