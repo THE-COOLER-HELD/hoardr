@@ -3,14 +3,23 @@ import useHomepage from "../../hooks/useHomepage";
 import { calcTotals } from "../../supabaseQueries";
 import UserContext from "../../contexts/UserContext";
 import PotOfGold from "../../assets/potogold.png";
+import AddPaymentDate from "../AddPaymentDate/AddPaymentDate";
 import { addToSavings } from "../../supabaseQueries";
 
-function SavingsPot({ setSeries }) {
+function SavingsPot({ setSeries, shakeTheBoy }) {
   const { user } = useContext(UserContext);
   const [showSavings, setShowSavings] = useState(false);
   const [savings, setSavings] = useState(0);
-  const { availableFunds, nextPaymentDate, setAvailableFunds, setBoyShake } =
-    useHomepage();
+  const {
+    availableFunds,
+
+    setAvailableFunds,
+    setBoyShake,
+    openDate,
+    setOpenDate,
+    nextDate,
+    setNextDate,
+  } = useHomepage();
 
   useEffect(() => {
     if (user.id) {
@@ -20,18 +29,6 @@ function SavingsPot({ setSeries }) {
 
   function toggleSavings(event) {
     setShowSavings(!showSavings);
-  }
-  function shakeTheBoy() {
-    setBoyShake(true);
-    addToSavings(user.id, 1).then((data) => {
-      setSeries((currSeries) => {
-        const copy = [...currSeries];
-        copy[0] += 2;
-        return copy;
-      });
-      setAvailableFunds(availableFunds - 2);
-      setSavings(savings + 2);
-    });
   }
 
   useEffect(() => {
@@ -48,11 +45,20 @@ function SavingsPot({ setSeries }) {
       {showSavings && <p className="savings-desc">£{savings} in the pot!</p>}
       <p className="available-funds-p">
         You have £{availableFunds} left until <br />
-        {nextPaymentDate}
+        {nextDate}{" "}
+        <button className="date-button" onClick={() => setOpenDate(!openDate)}>
+          ✏️
+        </button>
       </p>
+      {openDate && (
+        <AddPaymentDate setOpenDate={setOpenDate} setNextDate={setNextDate} />
+      )}
 
-      <button onClick={shakeTheBoy} className="feed-button">
-        Feed £2
+      <button
+        onClick={() => shakeTheBoy(setSavings, savings)}
+        className="feed-button"
+      >
+        Feed £1
       </button>
     </section>
   );

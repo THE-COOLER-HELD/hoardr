@@ -4,6 +4,8 @@
   --text: #f7fef6;
 
   --dark-accent: #00003f;
+
+  --grey: #202d32;
 }
 
 body {
@@ -150,6 +152,7 @@ body {
   padding-inline-start: 0px;
   margin-left: 1rem;
   margin-right: 1rem;
+  overflow: scroll;
 }
 
 .expense-card {
@@ -324,4 +327,35 @@ body {
   border: 1px solid var(--text);
   border-radius: 8px;
   appearance: none;
+}
+
+.date-button {
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
+  padding: 0;
+}
+
+.change-date-modal {
+  position: absolute;
+  z-index: 2;
+  margin: auto;
+  background-color: #202d32;
+  border: 3px solid var(--text);
+  border-radius: 5px;
+  top: 40%;
+  height: 50vh;
+}
+
+.change-date-form {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  margin: 0 1rem;
+}
+
+.change-date-button {
+  margin: 0 auto;
+  background-color: var(--dark-accent);
+  grid-area: 3/1/3/3;
 }

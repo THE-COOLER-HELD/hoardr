@@ -5,7 +5,11 @@ import DragonHappy from "../assets/dragon-happy.gif";
 import DragonHearts from "../assets/dragon-hearts.gif";
 import DragonNeutral from "../assets/dragon-neutral.gif";
 import DragonSad from "../assets/dragon-sad.gif";
-import { addToSavings, addTransaction } from "../supabaseQueries";
+import {
+  addToSavings,
+  addTransaction,
+  updateNextPaymentDate,
+} from "../supabaseQueries";
 
 const useHomepage = () => {
   const { user } = useContext(UserContext);
@@ -16,6 +20,8 @@ const useHomepage = () => {
     0,
     4
   )}`;
+
+  const [nextDate, setNextDate] = useState(newDate);
 
   const label = ["Spent", "Left"];
   const options = {
@@ -33,14 +39,9 @@ const useHomepage = () => {
   const [dragon, setDragon] = useState(null);
   const [availableFunds, setAvailableFunds] = useState(0);
   const [nextPaymentDate, setNextPaymentDate] = useState(newDate);
-
-  async function fetchTotals() {
-    if (user.id) {
-      setSeries(await calcTotals(user.id));
-    }
-  }
-
   const [boyShake, setBoyShake] = useState(false);
+  const [openDate, setOpenDate] = useState(false);
+  const [newNextPaymentDate, setNewNextPaymentDate] = useState("");
 
   useEffect(() => {
     fetchTotals();
@@ -50,6 +51,12 @@ const useHomepage = () => {
     setDragon(chooseDragon());
   }, [series]);
 
+  async function fetchTotals() {
+    if (user.id) {
+      setSeries(await calcTotals(user.id));
+    }
+  }
+
   useEffect(() => {
     if (boyShake) {
       setTimeout(() => {
@@ -58,40 +65,53 @@ const useHomepage = () => {
     }
   }, [boyShake]);
 
-  // uuid,
-  // 	amount,
-  // 	category,
-  // 	isNecessary,
-  // 	date,
-  // 	isOutgoing,
-  // 	description = ""
-
-  function shakeTheBoy() {
+  function shakeTheBoy(setSavings, savings) {
     setBoyShake(true);
     addToSavings(user.id, 1).then((data) => {
-      //   setSeries((currSeries) => {
-      //     const copy = [...currSeries];
-      //     copy[1]--;
-      //     return copy;
-      //   });
-      setAvailableFunds(availableFunds - 2);
+      setSeries((currSeries) => {
+        const copy = [...currSeries];
+        copy[0] += 1;
+        return copy;
+      });
+      setTimeout(() => {
+        setDragon(chooseDragon());
+        setBoyShake(false);
+      }, 2000);
+      setAvailableFunds(availableFunds - 1);
+      setSavings(savings + 1);
     });
-
-    const expense = {
-      uuid: user.id,
-      amount: 1,
-      category: "savings",
-      date: new Date(Date.now()),
-      isOutgoing: true,
-      description: "fed the boi",
-    };
-
-    addTransaction(expense);
   }
+
+  const expense = {
+    uuid: user.id,
+    amount: 1,
+    category: "savings",
+    date: new Date(Date.now()),
+    isOutgoing: true,
+    description: "fed the boi",
+  };
 
   function chooseDragon() {
     const random = Math.random() * 100;
+    if (boyShake) {
+      return DragonHearts;
+    }
     return random >= 50 ? DragonHappy : DragonNeutral;
+  }
+
+  function changeDate(e) {
+    setNewNextPaymentDate(e.target.value);
+  }
+
+  function submitNewDate(e, setOpenDate, setNextDate) {
+    e.preventDefault();
+    console.log({ newNextPaymentDate });
+    updateNextPaymentDate(user.id, newNextPaymentDate);
+    const formattedDate = `${newNextPaymentDate.slice(
+      -2
+    )}/${newNextPaymentDate.slice(-5, -3)}/${newNextPaymentDate.slice(0, 4)}`;
+    setNextDate(formattedDate);
+    setOpenDate(false);
   }
 
   return {
@@ -100,12 +120,19 @@ const useHomepage = () => {
     availableFunds,
     nextPaymentDate,
     boyShake,
-    shakeTheBoy,
-    setBoyShake,
     dragon,
+    shakeTheBoy,
     setAvailableFunds,
     setNextPaymentDate,
+    openDate,
+    setOpenDate,
+    changeDate,
+    submitNewDate,
+    newNextPaymentDate,
     setSeries,
+    setBoyShake,
+    nextDate,
+    setNextDate,
   };
 };
 
