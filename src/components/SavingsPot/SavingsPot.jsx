@@ -5,15 +5,20 @@ import UserContext from "../../contexts/UserContext";
 import PotOfGold from "../../assets/potogold.png"
 
 function SavingsPot() {
-    const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext)
+  const [showSavings, setShowSavings] = useState(false);
 
   const {
     availableFunds,
     nextPaymentDate,
     setAvailableFunds,
-    setNextPaymentDate,
     shakeTheBoy
   } = useHomepage();
+
+  function toggleSavings(event) {
+    console.log("clicked")
+    setShowSavings(!showSavings)
+  }
 
 useEffect(() => {
     calcTotals(user.id).then((data) => {
@@ -25,10 +30,11 @@ useEffect(() => {
 
   return (
       <section className="funds-text">
-        <img src={PotOfGold} width="250"/>
+      <img onClick={toggleSavings} className="potogold" src={PotOfGold} />
+      {showSavings && <p className="savings-desc">£{user.savings} in the pot!</p>}
         <p className="available-funds-p">
           You have £{availableFunds} left until <br />
-          {nextPaymentDate.toDateString("dd/mm/yyyy")}
+          {nextPaymentDate}
         </p>
 
         <button onClick={shakeTheBoy} className="feed-button">

@@ -16,7 +16,7 @@ function Homepage() {
         <img
           className={`dragon-img ${boyShake ? "shakeyBoy" : ""}`}
           alt="dragon logo"
-          src={DragonHappy}
+          src={chooseDragon()}
         ></img>
         <Chart
           className="donut-chart"
