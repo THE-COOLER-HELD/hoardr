@@ -1,32 +1,8 @@
 import React from "react";
-import { useState, useContext } from "react";
-import { createUser } from "../../supabaseQueries";
-import UserContext from "../../contexts/UserContext";
+import useSignupForm from "../../hooks/useSignupForm";
 
 function SignupForm({ session }) {
-	const [name, setName] = useState("");
-	const [currAmount, setCurrAmount] = useState(0);
-	const [nextPaymentDate, setNextPaymentDate] = useState("2000-01-01");
-	const { user, setUser } = useContext(UserContext);
-
-	const onSubmit = (e) => {
-		e.preventDefault();
-		const userData = {
-			id: session.user.id,
-			first_name: name,
-			current_funds: currAmount,
-			next_payment_date: nextPaymentDate
-		};
-
-		createUser(userData)
-			.then((user) => {
-				setUser(user);
-				setName("");
-				setCurrAmount(0);
-				setNextPaymentDate("2000-01-01");
-			})
-			.catch((e) => console.log(e));
-	};
+	const { name, currAmount, nextPaymentDate, onSubmit } = useSignupForm()
 
 	return (
 		<div>

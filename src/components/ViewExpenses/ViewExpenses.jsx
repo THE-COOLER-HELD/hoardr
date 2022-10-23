@@ -1,43 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import AddExpense from "../AddExpense/AddExpense";
 import AddIncome from "../AddIncome/AddIncome";
 import ExpenseCard from "./ExpenseCard";
+import useViewExpenses from "../../hooks/useViewExpenses";
 
 function ViewExpenses() {
-  const [openExpense, setOpenExpense] = useState(false);
-  const [openIncome, setOpenIncome] = useState(false);
-  const [expensesList, setExpensesList] = useState([
-    {
-      description: "Hamster",
-      category: "Lifestyle",
-      amount: "5",
-      necessary: true,
-      date: new Date(Date.now()).toLocaleDateString("EN", "dd/mm/yy"),
-      outgoing: true,
-    },
-    {
-      description: "I went to the market and bought an egg",
-      category: "Food",
-      amount: "0.72",
-      necessary: true,
-      date: new Date(Date.now()).toLocaleDateString("EN", "dd/mm/yy"),
-      outgoing: true,
-    },
-  ]);
-
-  function toggleExpenseModal() {
-    if (openIncome) {
-      setOpenIncome(!openIncome);
-    }
-    setOpenExpense(!openExpense);
-  }
-
-  function toggleIncomeModal() {
-    if (openExpense) {
-      setOpenExpense(!openExpense);
-    }
-    setOpenIncome(!openIncome);
-  }
+  const { openExpense, openIncome, toggleExpenseModal, toggleIncomeModal, expensesList } = useViewExpenses()
 
   return (
     <div width="100vw">
