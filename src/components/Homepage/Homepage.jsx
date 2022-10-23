@@ -25,7 +25,7 @@ function Homepage() {
           type="donut"
         ></Chart>
       </section>
-      <SavingsPot />
+      <SavingsPot shakeTheBoy={shakeTheBoy} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import DragonHappy from '../assets/dragon-happy.gif';
 import DragonHearts from '../assets/dragon-hearts.gif';
 import DragonNeutral from '../assets/dragon-neutral.gif';
 import DragonSad from '../assets/dragon-sad.gif';
+import { addToSavings, addTransaction } from '../supabaseQueries';
 
 
 const useHomepage = () => {
