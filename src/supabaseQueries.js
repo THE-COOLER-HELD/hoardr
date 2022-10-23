@@ -36,7 +36,7 @@ export const addTransaction = async (expense) => {
 
 export const viewTransactions = async (uuid, outgoing) => {
 	let query = supabase.from("transactions").select().eq("user_id", uuid);
-	if (!outgoing.isNull()) query = query.eq("outgoing", outgoing);
+	if (outgoing) query = query.eq("outgoing", outgoing);
 	
 	const { data, error } = await query
 	// 	.from("transactions")
@@ -76,3 +76,4 @@ export const fetchOutgoing = async (uuid) => {
 		return data
 	}
 }
+
