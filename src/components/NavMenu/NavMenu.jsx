@@ -20,7 +20,7 @@ function NavMenu() {
     return (
       <div className="header-container">
         <section className="header-bar">
-          <h1 className="hoardr-text">Hoardr</h1>
+          <h1 className="hoardr-text">hoardr</h1>
           <button onClick={toggleMenu} className="nav-menu-toggle">
             {open ? (
               <span class="material-symbols-outlined">close</span>
@@ -47,7 +47,7 @@ function NavMenu() {
     return (
       <div className="header-container">
         <section className="header-bar">
-          <h1 className="hoardr-text">Hoardr</h1>
+          <h1 className="hoardr-text">hoardr</h1>
           <button onClick={toggleMenu} className="nav-menu-toggle">
             <span className="material-symbols-outlined">menu</span>
           </button>

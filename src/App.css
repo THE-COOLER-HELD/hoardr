@@ -111,6 +111,7 @@
   line-height: 2rem;
   color: var(--text);
   font-weight: bolder;
+  margin: 1rem;
 }
 
 .feed-button {
@@ -215,12 +216,8 @@
 }
 
 .add-hoard-button {
+  grid-area: 3/1/4/2;
   margin-right: 10px;
-  background-color: var(--dark-accent);
-}
-
-.reset-hoard-button {
-  margin-left: 10px;
   background-color: var(--dark-accent);
 }
 
