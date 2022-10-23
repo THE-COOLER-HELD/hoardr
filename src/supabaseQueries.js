@@ -46,3 +46,31 @@ export const viewExpenses = async (uuid) => {
 		return data
 	}
 }
+
+export const fetchIncomes = async (uuid) => {
+	const { data, error } = await supabase 
+	.from("transactions")
+	.select()
+	.eq("outgoing", false)
+	.eq("user_id", uuid)
+
+	if (error) throw { error }
+	else {
+		console.log(data, "i am the data in queries")
+		return data
+	}
+}
+
+export const fetchOutgoing = async (uuid) => {
+	const { data, error } = await supabase 
+	.from("transactions")
+	.select()
+	.eq("outgoing", true)
+	.eq("user_id", uuid)
+
+	if (error) throw { error }
+	else {
+		console.log(data, "i am the data in queries")
+		return data
+	}
+}

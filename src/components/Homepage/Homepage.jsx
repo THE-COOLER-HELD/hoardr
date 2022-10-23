@@ -5,8 +5,13 @@ import DragonNeutral from "../../assets/dragon-neutral.gif";
 import DragonSad from "../../assets/dragon-sad.gif";
 import Chart from "react-apexcharts";
 import { useState } from "react";
+import { fetchIncomes, fetchOutgoing } from "../../supabaseQueries";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
 function Homepage() {
+  const { user } = useContext(UserContext)
+  console.log(user, "I'm the User in Homepage")
   const [options, setOptions] = useState({
     legend: { show: false },
     dataLabels: {
@@ -27,6 +32,12 @@ function Homepage() {
   );
 
   const [boyShake, setBoyShake] = useState(false);
+
+  useEffect(() => {
+    if (user.id) {
+      fetchOutgoing(user.id)
+    }
+}, [])
 
   useEffect(() => {
     if (boyShake) {
