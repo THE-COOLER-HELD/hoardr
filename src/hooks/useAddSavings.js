@@ -10,7 +10,6 @@ const useAddSavings = (setExpensesList) => {
 
   useEffect(() => {
     getUser(user.id).then(([user]) => {
-      console.log({ user });
       setSavings(user.savings);
     });
   }, []);
@@ -18,7 +17,6 @@ const useAddSavings = (setExpensesList) => {
   const addSavings = async (e) => {
     e.preventDefault();
     const newTransaction = await addToSavings(user.id, amount);
-    console.log({ newTransaction });
 
     setExpensesList((currExp) => [newTransaction[0], ...currExp]);
   };

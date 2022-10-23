@@ -69,7 +69,6 @@ const useHomepage = () => {
   function shakeTheBoy() {
     setBoyShake(true);
     addToSavings(user.id, 1).then((data) => {
-      console.log({ data }, "in the shaekboy");
       //   setSeries((currSeries) => {
       //     const copy = [...currSeries];
       //     copy[1]--;

@@ -1,285 +1,310 @@
 :root {
-	--main-bg-color: #000087;
+  --main-bg-color: #000087;
 
-	--text: #f7fef6;
+  --text: #f7fef6;
 
-	--dark-accent: #00003f;
+  --dark-accent: #00003f;
+  background-color: var(--main-bg-color);
+}
+body {
+  background-color: var(--main-bg-color);
 }
 
 .App {
-	height: 100vh;
-	width: 100vw;
-	display: grid;
-	grid-template-rows: 10% 90%;
-	background-color: var(--main-bg-color);
+  max-height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 10% 90%;
 }
 
 .header-container {
-	height: 100%;
+  height: 100%;
 }
 .header-bar {
-	display: grid;
-	grid-template-columns: 70% 30%;
-	grid-template-rows: 100%;
-	align-items: stretch;
-	height: 100%;
-	padding-right: 5px;
-	padding-top: 5px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 100%;
+  align-items: stretch;
+  height: 100%;
+  padding-right: 5px;
+  padding-top: 5px;
 }
 
 .nav-button {
-	width: 100%;
-	font-size: 3rem;
-	border: 10px solid gray;
-	background-color: var(--dark-accent);
+  width: 100%;
+  font-size: 3rem;
+  border: 10px solid gray;
+  background-color: var(--dark-accent);
 }
 
 .nav-menu-toggle {
-	background-color: var(--dark-accent);
+  background-color: var(--dark-accent);
 }
 
 .material-symbols-outlined {
-	font-size: 4rem;
-	margin: auto;
+  font-size: 4rem;
+  margin: auto;
 }
 
 .nav-list {
-	z-index: 3;
-	position: absolute;
-	display: grid;
-	grid-template-rows: repeat(3, 1fr);
-	grid-template-columns: 100%;
-	/* grid-row-gap: 1px; */
-	min-width: 80vw;
-	min-height: 50vh;
-	right: 5px;
-	justify-content: space-around;
+  z-index: 3;
+  position: absolute;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: 100%;
+  /* grid-row-gap: 1px; */
+  min-width: 80vw;
+  min-height: 50vh;
+  right: 5px;
+  justify-content: space-around;
 }
 .hoardr-text {
-	margin: none;
-	align-self: center;
-	padding-top: -0.3rem;
-	margin-left: 1rem;
-	font-size: 5rem;
-	color: var(--text);
+  margin: none;
+  align-self: center;
+  padding-top: -0.3rem;
+  margin-left: 1rem;
+  font-size: 5rem;
+  color: var(--text);
 }
 
 .homepage {
-	grid-row-start: 2;
-	grid-row-end: 3;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .chart-container {
-	display: grid;
-	margin: 0 auto;
-	grid-template-columns: repeat(3, 33%);
-	grid-template-rows: repeat(3, 33%);
-	height: 100vw;
-	width: 100vw;
-	align-items: center;
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: repeat(3, 33%);
+  grid-template-rows: repeat(3, 33%);
+  height: 100vw;
+  width: 100vw;
+  align-items: center;
 }
 
 .dragon-img {
-	width: 100%;
-	z-index: 2;
-	grid-area: 2/2/3/3;
+  width: 100%;
+  z-index: 2;
+  grid-area: 2/2/3/3;
 }
 
 .shakeyBoy {
-	animation-name: shakeTheBoy;
-	animation-duration: 1s;
+  animation-name: shakeTheBoy;
+  animation-duration: 1s;
 }
 
 .donut-chart {
-	height: 100%;
-	width: 100%;
-	margin: auto;
-	align-items: stretch;
-	grid-area: 1/1/4/4;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  align-items: stretch;
+  grid-area: 1/1/4/4;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .available-funds-p {
-	font-size: 2rem;
-	word-wrap: normal;
-	line-height: 2rem;
-	color: var(--text);
-	font-weight: bolder;
-	margin: 1rem;
+  font-size: 2rem;
+  word-wrap: normal;
+  line-height: 2rem;
+  color: var(--text);
+  font-weight: bolder;
+  margin: 1rem;
 }
 
 .feed-button {
-	width: 80vw;
-	height: 6rem;
-	font-size: 3rem;
-	padding: 1px;
-	color: var(--text);
-	background-color: var(--dark-accent);
+  width: 80vw;
+  height: 6rem;
+  font-size: 3rem;
+  padding: 1px;
+  color: var(--text);
+  background-color: var(--dark-accent);
 }
 
 .transactions-text {
-	font-size: 2.5rem;
-	margin-left: 1rem;
+  font-size: 2.5rem;
+  margin-left: 1rem;
 }
 
 .transaction-list-button {
-	background-color: var(--dark-accent);
-	margin: 2px;
+  background-color: var(--dark-accent);
+  margin: 2px;
 }
 
 .funds-text {
-	height: 5vh;
-	text-align: center;
+  height: 5vh;
+  text-align: center;
 }
 
 .expense-list {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding-inline-start: 0px;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .expense-card {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	justify-items: center;
-	margin-top: 3px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  margin-top: 3px;
+  border-bottom: 1px solid #f7fef6;
+}
+
+.expand-button {
+  justify-self: right;
+  height: 90%;
+  margin: 0.2rem;
 }
 
 .expense-info {
-	display: grid;
-	grid-template-columns: 30% 70%;
-	text-align: center;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  text-align: center;
 }
 
 .add-expense-modal {
-	z-index: 1;
-	position: absolute;
-	background: #202d32;
-	border-radius: 1rem;
-	border: 10px solid #182226;
-	width: 90vw;
-	min-height: 45vh;
-	margin: 0 3%;
+  z-index: 1;
+  position: absolute;
+  background: #202d32;
+  border-radius: 1rem;
+  border: 10px solid #182226;
+  width: 90vw;
+  min-height: 45vh;
+  margin: 0 3%;
 }
 
 .add-savings-modal {
-	z-index: 1;
-	position: absolute;
-	background: #202d32;
-	border-radius: 1rem;
-	border: 10px solid #182226;
-	width: 90vw;
-	min-height: 45vh;
-	margin: 0 3%;
+  z-index: 1;
+  position: absolute;
+  background: #202d32;
+  border-radius: 1rem;
+  border: 10px solid #182226;
+  width: 90vw;
+  min-height: 45vh;
+  margin: 0 3%;
 }
 
 .expense-form {
-	display: grid;
-	grid-template-columns: 50% 50%;
-	grid-template-rows: repeat(5, 20%);
-	grid-row-gap: 10px;
-	text-align: justify;
-	margin-left: 1rem;
-	margin-right: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(5, 20%);
+  grid-row-gap: 10px;
+  text-align: justify;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .savings-form {
-	display: grid;
-	grid-template-columns: 50% 50%;
-	grid-template-rows: repeat(4, 25%);
-	grid-row-gap: 10px;
-	text-align: justify;
-	margin-left: 1rem;
-	margin-right: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(4, 25%);
+  grid-row-gap: 10px;
+  text-align: justify;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .add-button {
-	grid-area: 5/1/5/3;
-	width: 90%;
-	border-radius: 5px;
-	margin: auto;
-	background-color: var(--dark-accent);
+  grid-area: 5/1/5/3;
+  width: 90%;
+  border-radius: 5px;
+  margin: auto;
+  background-color: var(--dark-accent);
 }
 
 .savings-button {
-	width: 90%;
-	border-radius: 5px;
-	margin: auto;
-	background-color: var(--dark-accent);
+  width: 90%;
+  border-radius: 5px;
+  margin: auto;
+  background-color: var(--dark-accent);
 }
 
 .expense-head {
-	margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .add-income-modal {
-	z-index: 1;
-	position: absolute;
-	background: #202d32;
-	border-radius: 1rem;
-	border: 10px solid #182226;
-	width: 90vw;
-	min-height: 45vh;
-	margin: 0 3%;
+  z-index: 1;
+  position: absolute;
+  background: #202d32;
+  border-radius: 1rem;
+  border: 10px solid #182226;
+  width: 90vw;
+  min-height: 45vh;
+  margin: 0 3%;
 }
 
 .add-income-form {
-	display: grid;
-	grid-template-columns: 50% 50%;
-	grid-template-rows: repeat(3, 33%);
-	grid-row-gap: 10px;
-	text-align: justify;
-	margin-left: 1rem;
-	margin-right: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(3, 33%);
+  grid-row-gap: 10px;
+  text-align: justify;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .add-hoard-button {
-	grid-area: 3/1/4/2;
-	margin-right: 10px;
-	background-color: var(--dark-accent);
+  grid-area: 3/1/4/2;
+  margin-right: 10px;
+  background-color: var(--dark-accent);
 }
 
 .income-head {
-	margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .transaction-page-container {
-	width: 100vw;
-	display: flex;
-	flex-direction: column;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .transaction-button-container {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 @keyframes shakeTheBoy {
-	0% {
-		transform: translateX(-4px) rotate(-4deg);
-	}
+  0% {
+    transform: translateX(-4px) rotate(-4deg);
+  }
 
-	30% {
-		transform: translateX(2px) rotate(2deg);
-	}
-	50% {
-		transform: translateX(-2px) rotate(-1deg);
-	}
-	60% {
-		transform: translateX(0) rotate(0deg);
-	}
+  30% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  50% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+  60% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+@keyframes bounceThePot {
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+    rotate: -3deg;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    rotate: 3deg;
+  }
 }
 
 .potogold {
   width: 20vw;
+  animation: bounceThePot 5s infinite;
 }
 
 .savings-desc {

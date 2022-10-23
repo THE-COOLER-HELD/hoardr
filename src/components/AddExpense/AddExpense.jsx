@@ -22,7 +22,6 @@ function AddExpense({ setExpensesList }) {
     event.preventDefault();
     const expenseCopy = { ...expense };
     expenseCopy.uuid = user.id;
-    console.log(expenseCopy);
     addTransaction(expenseCopy).then((data) => {
       setExpensesList((currExp) => {
         return [data[0], ...currExp];

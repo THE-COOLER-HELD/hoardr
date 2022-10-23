@@ -10,19 +10,16 @@ import AddIncome from "./components/AddIncome/AddIncome";
 import ViewExpenses from "./components/ViewExpenses/ViewExpenses";
 import UserContext from "./contexts/UserContext";
 import SessionContext from "./contexts/SessionContext";
-import AddExpense from "./components/AddExpense/AddExpense";
 
 function App() {
   const [user, setUser] = useState({});
   const [session, setSession] = useState({});
 
-  console.log(user);
-
   useEffect(() => {
     if (!user.id) {
       const sessionUser = JSON.parse(window.sessionStorage.getItem("user"));
       if (sessionUser) {
-        setUser(JSON.parse(sessionUser));
+        setUser(sessionUser);
       }
     }
     if (user.id) {

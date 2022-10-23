@@ -8,9 +8,15 @@ import { addToSavings } from "../../supabaseQueries";
 function SavingsPot({ setSeries }) {
   const { user } = useContext(UserContext);
   const [showSavings, setShowSavings] = useState(false);
-
+  const [savings, setSavings] = useState(0);
   const { availableFunds, nextPaymentDate, setAvailableFunds, setBoyShake } =
     useHomepage();
+
+  useEffect(() => {
+    if (user.id) {
+      setSavings(user.savings);
+    }
+  }, []);
 
   function toggleSavings(event) {
     setShowSavings(!showSavings);
@@ -18,14 +24,13 @@ function SavingsPot({ setSeries }) {
   function shakeTheBoy() {
     setBoyShake(true);
     addToSavings(user.id, 1).then((data) => {
-      console.log({ data }, "in the shaekboy");
       setSeries((currSeries) => {
-        console.log(currSeries);
         const copy = [...currSeries];
         copy[0] += 2;
         return copy;
       });
       setAvailableFunds(availableFunds - 2);
+      setSavings(savings + 2);
     });
   }
 
@@ -34,17 +39,13 @@ function SavingsPot({ setSeries }) {
       .then((data) => {
         setAvailableFunds(data[1] - data[0]);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
 
   return (
     <section className="funds-text">
       <img onClick={toggleSavings} className="potogold" src={PotOfGold} />
-      {showSavings && (
-        <p className="savings-desc">£{user.savings} in the pot!</p>
-      )}
+      {showSavings && <p className="savings-desc">£{savings} in the pot!</p>}
       <p className="available-funds-p">
         You have £{availableFunds} left until <br />
         {nextPaymentDate}

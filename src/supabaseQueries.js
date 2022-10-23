@@ -42,10 +42,8 @@ export const addTransaction = async (expense) => {
       description,
     })
     .select();
-  console.log({ error });
   if (error) throw { error };
   else {
-    console.log({ data });
     return data;
   }
 };
@@ -73,7 +71,6 @@ export const fetchIncomes = async (uuid) => {
 
   if (error) throw { error };
   else {
-    console.log(data, "i am the data in queries");
     return data;
   }
 };
@@ -102,7 +99,6 @@ export const fetchOutgoing = async (uuid) => {
 
   if (error) throw { error };
   else {
-    console.log(data, "i am the data in queries");
     return data;
   }
 };
@@ -127,7 +123,6 @@ export const addToSavings = async (uuid, amount) => {
       isOutgoing: true,
       description: "Adding to Savings",
     });
-    console.log({ data });
     return data;
   }
 };
@@ -152,7 +147,6 @@ export const withdrawFromSavings = async (uuid, amount) => {
       isOutgoing: false,
       description: "Withdrawal from Savings",
     });
-    console.log({ data });
     return data;
   }
 };
