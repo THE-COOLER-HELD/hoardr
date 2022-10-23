@@ -21,8 +21,10 @@ const useViewExpenses = () => {
   function filterTransactions(event) {
     if (event.target.value === "Outgoing") {
       setFilter(true);
-    } else {
+    } else if (event.target.value === "Incoming") {
       setFilter(false);
+    } else {
+      setFilter(null);
     }
   }
 

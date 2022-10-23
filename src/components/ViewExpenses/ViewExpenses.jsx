@@ -38,9 +38,10 @@ function ViewExpenses() {
           View Savings
         </button>
       </section>
-      <select onChange={filterTransactions}>
-        <option>Incoming</option>
-        <option>Outgoing</option>
+      <select className="filter-select" onChange={filterTransactions}>
+        <option value="All">All ↯</option>
+        <option value={"Incoming"}>Incoming</option>
+        <option value={"Outgoing"}>Outgoing</option>
       </select>
       {openExpense && (
         <section>{<AddExpense setExpensesList={setExpensesList} />}</section>

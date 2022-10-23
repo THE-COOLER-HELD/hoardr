@@ -20,12 +20,10 @@ function ExpenseCard({
   return (
     <>
       <div className="expense-card">
-        {/* <p>{description}</p> */}
         <p>{new Date(date).toDateString("dd-mm-yy")}</p>
         <p>{category}</p>
         <p>£{amount}</p>
         <p>{outgoing ? "OUT" : "IN"}</p>
-        {/* <p>{necessary ? "✅" : "❎"}</p> */}
         <button className="expand-button" onClick={toggleInfo}>
           {showInfo ? "-" : "+"}
         </button>
