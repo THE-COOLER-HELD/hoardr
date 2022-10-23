@@ -1,10 +1,10 @@
-import { supabase } from './superbaseClient';
+import { supabase } from "./superbaseClient";
 
 export const getUser = async (uuid) => {
 	const { data, error } = await supabase
-		.from('profiles')
+		.from("profiles")
 		.select()
-		.eq('id', uuid);
+		.eq("id", uuid);
 
 	if (error) throw { error };
 	else return data;
@@ -12,7 +12,7 @@ export const getUser = async (uuid) => {
 
 export const createUser = (userData) => {
 	return supabase
-		.from('profiles')
+		.from("profiles")
 		.insert(userData)
 		.then((newUser) => {
 			return newUser;
@@ -28,10 +28,10 @@ export const addTransaction = async (expense) => {
 		isNecessary,
 		date,
 		isOutgoing,
-		description = '',
+		description = ""
 	} = expense;
 	const { data, error } = await supabase
-		.from('transactions')
+		.from("transactions")
 		.insert({
 			user_id: uuid,
 			amount,
@@ -39,7 +39,7 @@ export const addTransaction = async (expense) => {
 			necessary: isNecessary,
 			date,
 			outgoing: isOutgoing,
-			description,
+			description
 		})
 		.select();
 
@@ -51,13 +51,13 @@ export const addTransaction = async (expense) => {
 };
 
 export const viewTransactions = async (uuid, outgoing) => {
-	let query = supabase.from('transactions').select().eq('user_id', uuid);
-	if (outgoing) query = query.eq('outgoing', outgoing);
+	let query = supabase.from("transactions").select().eq("user_id", uuid);
+	if (outgoing !== null) {
+		query = query.eq("outgoing", outgoing);
+	}
 
 	const { data, error } = await query;
-	// 	.from("transactions")
-	// 	.select()
-	// 	.eq("user_id", uuid)
+
 	if (error) throw { error };
 	else {
 		console.log(data);
@@ -67,14 +67,14 @@ export const viewTransactions = async (uuid, outgoing) => {
 
 export const fetchIncomes = async (uuid) => {
 	const { data, error } = await supabase
-		.from('transactions')
+		.from("transactions")
 		.select()
-		.eq('outgoing', false)
-		.eq('user_id', uuid);
+		.eq("outgoing", false)
+		.eq("user_id", uuid);
 
 	if (error) throw { error };
 	else {
-		console.log(data, 'i am the data in queries');
+		console.log(data, "i am the data in queries");
 		return data;
 	}
 };
@@ -92,18 +92,18 @@ export const calcTotals = async (uuid) => {
 	let totalOut = calcTotal(allOutgoings);
 	let totalIn = calcTotal(allIncome);
 
-	return [ totalOut, totalIn ];
+	return [totalOut, totalIn];
 };
 export const fetchOutgoing = async (uuid) => {
 	const { data, error } = await supabase
-		.from('transactions')
+		.from("transactions")
 		.select()
-		.eq('outgoing', true)
-		.eq('user_id', uuid);
+		.eq("outgoing", true)
+		.eq("user_id", uuid);
 
 	if (error) throw { error };
 	else {
-		console.log(data, 'i am the data in queries');
+		console.log(data, "i am the data in queries");
 		return data;
 	}
 };
