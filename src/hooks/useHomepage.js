@@ -5,6 +5,7 @@ import DragonHappy from '../assets/dragon-happy.gif';
 import DragonHearts from '../assets/dragon-hearts.gif';
 import DragonNeutral from '../assets/dragon-neutral.gif';
 import DragonSad from '../assets/dragon-sad.gif';
+import { addToSavings, addTransaction } from '../supabaseQueries';
 
 
 const useHomepage = () => {
@@ -25,6 +26,7 @@ const useHomepage = () => {
 	};
 
 	const [series, setSeries] = useState([]);
+	const [dragon, setDragon] = useState(null);
 	const [availableFunds, setAvailableFunds] = useState(0);
 	const [nextPaymentDate, setNextPaymentDate] = useState(
 		newDate
@@ -41,6 +43,10 @@ const useHomepage = () => {
 	useEffect(() => {
 		fetchTotals();
 	}, [user]);
+
+	useEffect(() => {
+		setDragon(chooseDragon())
+	}, [series])
 
 	useEffect(() => {
 		if (boyShake) {
@@ -75,21 +81,8 @@ const useHomepage = () => {
 	}
 
 	function chooseDragon() {
-		const maxFunds = series[1];
-		const percentage = maxFunds / series[0]
-		
-		const thirdOfMax = maxFunds / 3;
-		if (percentage > thirdOfMax * 2) {
-			return DragonHappy;
-		}
-
-		if (percentage > thirdOfMax) {
-			return DragonNeutral;
-		}
-
-		if (percentage < thirdOfMax) {
-			return DragonSad;
-		}
+		const random = Math.random() * 100
+		return random >= 50 ? DragonHappy : DragonNeutral		
 	}
 
 	return {
@@ -99,7 +92,7 @@ const useHomepage = () => {
 		nextPaymentDate,
 		boyShake,
 		shakeTheBoy,
-		chooseDragon,
+		dragon,
         setAvailableFunds,
         setNextPaymentDate
 	};

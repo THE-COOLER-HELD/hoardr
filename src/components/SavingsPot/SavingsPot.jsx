@@ -4,19 +4,17 @@ import { calcTotals } from "../../supabaseQueries"
 import UserContext from "../../contexts/UserContext";
 import PotOfGold from "../../assets/potogold.png"
 
-function SavingsPot() {
+function SavingsPot({shakeTheBoy}) {
   const { user } = useContext(UserContext)
   const [showSavings, setShowSavings] = useState(false);
 
   const {
     availableFunds,
     nextPaymentDate,
-    setAvailableFunds,
-    shakeTheBoy
+    setAvailableFunds
   } = useHomepage();
 
   function toggleSavings(event) {
-    console.log("clicked")
     setShowSavings(!showSavings)
   }
 
