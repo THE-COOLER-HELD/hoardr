@@ -49,6 +49,12 @@ const useHomepage = () => {
 		setDragon(chooseDragon());
 	}, [series]);
 
+	async function fetchTotals() {
+		if (user.id) {
+			setSeries(await calcTotals(user.id));
+		}
+	}
+
 	useEffect(() => {
 		if (boyShake) {
 			setTimeout(() => {
@@ -57,27 +63,36 @@ const useHomepage = () => {
 		}
 	}, [boyShake]);
 
-	async function fetchTotals() {
-		if (user.id) {
-			setSeries(await calcTotals(user.id));
-		}
-	}
+	// uuid,
+	// 	amount,
+	// 	category,
+	// 	isNecessary,
+	// 	date,
+	// 	isOutgoing,
+	// 	description = ""
 
-	function shakeTheBoy() {
-		setBoyShake(true);
-		addToSavings(user.id, 1);
+	// function shakeTheBoy() {
+	// 	setBoyShake(true);
+	// 	addToSavings(user.id, 1).then((data) => {
+	// 		setSeries((currSeries) => {
+	// 			const copy = [...currSeries];
+	// 			copy[0] += 1;
+	// 			return copy;
+	// 		});
+	// 		// setAvailableFunds((currFunds) => {
+	// 		// 	return currFunds - 1;
+	// 		// });
+	// 	});
+	// }
 
-		const expense = {
-			uuid: user.id,
-			amount: 1,
-			category: "savings",
-			date: new Date(Date.now()),
-			isOutgoing: true,
-			description: "fed the boi"
-		};
-
-		addTransaction(expense);
-	}
+	const expense = {
+		uuid: user.id,
+		amount: 1,
+		category: "savings",
+		date: new Date(Date.now()),
+		isOutgoing: true,
+		description: "fed the boi"
+	};
 
 	function chooseDragon() {
 		const random = Math.random() * 100;
@@ -101,7 +116,6 @@ const useHomepage = () => {
 		availableFunds,
 		nextPaymentDate,
 		boyShake,
-		shakeTheBoy,
 		dragon,
 		setAvailableFunds,
 		setNextPaymentDate,
@@ -109,7 +123,9 @@ const useHomepage = () => {
 		setOpenDate,
 		changeDate,
 		submitNewDate,
-		newNextPaymentDate
+		newNextPaymentDate,
+		setSeries,
+		setBoyShake
 	};
 };
 

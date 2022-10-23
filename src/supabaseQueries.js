@@ -42,10 +42,8 @@ export const addTransaction = async (expense) => {
 			description
 		})
 		.select();
-
 	if (error) throw { error };
 	else {
-		console.log({ data });
 		return data;
 	}
 };
@@ -118,7 +116,7 @@ export const addToSavings = async (uuid, amount) => {
 
 	if (error) throw error;
 	else {
-		const { data } = await addTransaction({
+		const data = await addTransaction({
 			uuid,
 			amount,
 			category: "Savings",
@@ -126,7 +124,6 @@ export const addToSavings = async (uuid, amount) => {
 			isOutgoing: true,
 			description: "Adding to Savings"
 		});
-		console.log({ data });
 		return data;
 	}
 };
@@ -143,7 +140,7 @@ export const withdrawFromSavings = async (uuid, amount) => {
 
 	if (error) throw error;
 	else {
-		const { data } = await addTransaction({
+		const data = await addTransaction({
 			uuid,
 			amount,
 			category: "Savings",
@@ -151,7 +148,6 @@ export const withdrawFromSavings = async (uuid, amount) => {
 			isOutgoing: false,
 			description: "Withdrawal from Savings"
 		});
-		console.log({ data });
 		return data;
 	}
 };
